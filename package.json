@@ -3,10 +3,14 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
-    "build": "ng build",
-    "watch": "ng build --watch --configuration development",
-    "test": "ng test",
+    "start-app": "ng serve Audiodoe_App",
+    "build-app": "ng build Audiodoe_App",
+    "watch-app": "ng build Audiodoe_App --watch --configuration development",
+    "test-app": "ng test Audiodoe_App",
+    "start-back": "ng serve back-office",
+    "build-back": "ng build back-office",
+    "watch-back": "ng build back-office --watch --configuration development",
+    "test-back": "ng test back-office",
     "build-lib": "ng build audiodoe-lib --watch"
   },
   "private": true,
