@@ -1,0 +1,65 @@
+<app-navigation></app-navigation>
+<div class="screen-container">
+  <div class="header">
+    <div class="header-top">
+      <div class="picture-name-container">
+        <app-profile-picture
+          image="assets\images\pim.png"
+        ></app-profile-picture>
+        <div class="username">
+          <span>Inspiratie-beurs</span>
+        </div>
+      </div>
+    </div>
+    <div class="slider-container">
+      <div class="slider">
+        <div class="arrow backwards"></div>
+        <div class="arrow forwards"></div>
+      </div>
+      <div class="slider-content">
+        <div class="category-tile" (click)="storyService.resetFilters()">
+          <img src="assets/icons/book.png" />
+          <span>Alle verhalen</span>
+        </div>
+        <div
+          *ngFor="let category of categories"
+          class="category-tile"
+          (click)="storyService.setCategoryFilter(category.value)"
+        >
+          <img [src]="category.imgPath" />
+          <span>{{ category.name }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="content-container">
+    <div class="search-container">
+      <input
+        type="text"
+        placeholder="Zoek een verhaal"
+        #searchTerm
+        (input)="changeSearchTerm(searchTerm.value)"
+      />
+    </div>
+    <app-loader [isLoading]="isLoading"></app-loader>
+    <div *ngIf="!isLoading" class="content-wrapper">
+      <div *ngIf="stories && stories.length !== 0" class="content">
+        <div *ngFor="let story of stories" class="tile">
+          <div class="tile-image" [ngClass]="story.backGroundColor">
+            <img [src]="story.thumbnail" />
+          </div>
+          <div
+            class="tile-content"
+            [ngClass]="'tertiary-' + story.backGroundColor"
+          >
+            <div>{{ story.title }}</div>
+          </div>
+        </div>
+      </div>
+
+      <div *ngIf="!stories || stories.length === 0" class="empty-results">
+        <span>Geen verhalen gevonden.</span>
+      </div>
+    </div>
+  </div>
+</div>

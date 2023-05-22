@@ -4,12 +4,14 @@
   "scripts": {
     "ng": "ng",
     "start-app": "ng serve Audiodoe_App --port 4201",
+    "start-app-dev": "ng serve Audiodoe_App --port 4201 --configuration=development",
     "build-app": "ng build Audiodoe_App",
-    "watch-app": "ng build Audiodoe_App --watch --configuration development",
+    "watch-app": "ng build Audiodoe_App --watch --configuration=development",
     "test-app": "ng test Audiodoe_App",
     "start-back": "ng serve back-office --port 4202",
+    "start-back-dev": "ng serve back-office --port 4202 --configuration=development",
     "build-back": "ng build back-office",
-    "watch-back": "ng build back-office --watch --configuration development",
+    "watch-back": "ng build back-office --watch --configuration=development",
     "test-back": "ng test back-office",
     "build-lib": "ng build audiodoe-lib --watch"
   },

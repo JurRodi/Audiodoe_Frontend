@@ -1,0 +1,54 @@
+.loading-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  width: 200px;
+  margin: 4rem auto;
+  font-size: var(--header-3);
+  color: var(--primary--black);
+}
+
+.loader {
+  width: 100%;
+  height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  div {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    animation: loader 2.1s ease-in-out infinite;
+  }
+
+  .purple {
+    background-color: var(--secundary--purple--light);
+  }
+
+  .orange {
+    background-color: var(--secundary--orange--light);
+    animation-delay: 0.7s;
+  }
+
+  .green {
+    background-color: var(--secundary--green--light);
+    animation-delay: 1.4s;
+  }
+}
+
+@keyframes loader {
+  0% {
+    transform: translateY(0);
+  }
+  14% {
+    transform: translateY(-20px);
+  }
+  28% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
