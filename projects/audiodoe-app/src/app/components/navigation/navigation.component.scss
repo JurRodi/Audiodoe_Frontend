@@ -1,0 +1,35 @@
+nav {
+  width: 100%;
+  height: 65px;
+  position: fixed;
+  bottom: 0;
+  background-color: var(--tertiary--green);
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  z-index: 1;
+
+  div {
+    width: 32px;
+    height: 32px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+
+  .stories {
+    background-image: url('../../../assets/icons/book.png');
+  }
+
+  .wallet {
+    background-image: url('../../../assets/icons/wallet.png');
+  }
+
+  .profile {
+    background-image: url('../../../assets/icons/user.png');
+  }
+
+  .active {
+    background-color: var(--secundary--green--dark);
+  }
+}
