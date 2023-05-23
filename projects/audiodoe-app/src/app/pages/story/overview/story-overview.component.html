@@ -41,7 +41,9 @@
         (input)="changeSearchTerm(searchTerm.value)"
       />
     </div>
-    <app-loader [isLoading]="isLoading"></app-loader>
+    <div *ngIf="isLoading">
+      <app-loader></app-loader>
+    </div>
     <div *ngIf="!isLoading" class="content-wrapper">
       <div *ngIf="stories && stories.length !== 0" class="content">
         <div

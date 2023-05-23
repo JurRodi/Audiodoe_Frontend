@@ -1,6 +1,6 @@
 <div class="screen-container">
   <div *ngIf="isLoading" class="loader-container">
-    <app-loader [isLoading]="isLoading"></app-loader>
+    <app-loader></app-loader>
   </div>
   <div
     *ngIf="!isLoading && story"
@@ -17,7 +17,7 @@
         <div class="clock"></div>
         <span>{{ story.duration }} min.</span>
       </div>
-      <div class="btn">Lees verhaal</div>
+      <div class="btn" (click)="navigateToPage('1')">Lees verhaal</div>
     </div>
     <div class="thumbnail">
       <img [src]="'assets/images/' + story.thumbnail" />
