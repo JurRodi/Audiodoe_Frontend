@@ -39,6 +39,10 @@ export class StoryDetailComponent implements OnInit, OnDestroy {
   }
 
   public navigateBack(): void {
-    this.router.navigate(['/stories'])
+    this.router.navigate(['/story'])
+  }
+
+  public navigateToPage(pageNumber: string): void {
+    this.router.navigate([`/story/${this.story?._id}/${pageNumber}`])
   }
 }
