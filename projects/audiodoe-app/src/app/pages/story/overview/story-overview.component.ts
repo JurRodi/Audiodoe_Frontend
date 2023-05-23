@@ -5,6 +5,7 @@ import { AuthenticationService } from '../../../authentication/authentication.se
 import { CategoryModel } from '../../../api-client/models/category/categoryModel'
 import { CategoryControllerService } from '../../../api-client/services/category/category-controller.service'
 import { StoryOverviewService } from '../services/story-overview.service'
+import { Router } from '@angular/router'
 
 @Component({
   selector: 'app-story',
@@ -22,7 +23,8 @@ export class StoryOverviewComponent implements OnInit, OnDestroy {
   constructor(
     protected storyService: StoryOverviewService,
     protected categoryService: CategoryControllerService,
-    private authService: AuthenticationService
+    private authService: AuthenticationService,
+    private router: Router
   ) {}
 
   async ngOnInit(): Promise<void> {
@@ -51,5 +53,9 @@ export class StoryOverviewComponent implements OnInit, OnDestroy {
 
   public changeSearchTerm(searchTerm: string) {
     this.storyService.searchTerm$.next(searchTerm)
+  }
+
+  public navigateToStory(id: string) {
+    this.router.navigate(['story', id])
   }
 }

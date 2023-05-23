@@ -17,4 +17,10 @@ export class StoryControllerService {
       this.http.post(environment.apiBaseUrl + RESOURCE, filters)
     )
   }
+
+  public getStory(id: string) {
+    return lastValueFrom(
+      this.http.get(environment.apiBaseUrl + RESOURCE + '/' + id)
+    )
+  }
 }
