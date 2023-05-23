@@ -6,8 +6,45 @@
 
 .text-container {
   width: 30%;
-  height: calc(100% - 6rem);
-  padding: 3rem 2rem;
+  height: calc(100% - 4rem);
+  padding: 2rem 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  p {
+    height: 100%;
+    margin: 1.5rem 0;
+  }
+
+  .btn-group {
+    display: flex;
+  }
+
+  .btn {
+    width: 32px;
+    height: 32px;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    margin-right: 1rem;
+  }
+
+  .btn-home {
+    background-image: url('../../../assets/icons/home.svg');
+  }
+
+  .btn-mute {
+    background-image: url('../../../assets/icons/mute.svg');
+  }
+
+  .btn-previous {
+    background-image: url('../../../assets/icons/previous.svg');
+  }
+
+  .btn-next {
+    background-image: url('../../../assets/icons/next.svg');
+  }
 }
 
 .image-container {
