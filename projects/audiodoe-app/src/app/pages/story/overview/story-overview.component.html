@@ -44,7 +44,11 @@
     <app-loader [isLoading]="isLoading"></app-loader>
     <div *ngIf="!isLoading" class="content-wrapper">
       <div *ngIf="stories && stories.length !== 0" class="content">
-        <div *ngFor="let story of stories" class="tile">
+        <div
+          *ngFor="let story of stories"
+          class="tile"
+          (click)="navigateToStory(story._id)"
+        >
           <div class="tile-image" [ngClass]="story.backGroundColor">
             <img [src]="story.thumbnail" />
           </div>
