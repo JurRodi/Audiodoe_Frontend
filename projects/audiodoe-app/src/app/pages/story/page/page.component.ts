@@ -13,6 +13,7 @@ import { ActivatedRoute } from '@angular/router'
 export class PageComponent implements OnInit, OnDestroy {
   private storyId = this.route.snapshot.paramMap.get('id') || ''
   public pageNumber = this.route.snapshot.paramMap.get('pageNumber') || ''
+  public standardChoicePath = 'a'
 
   public page: PageModel | null = null
   public isLoading = false
@@ -35,7 +36,11 @@ export class PageComponent implements OnInit, OnDestroy {
         this.isLoading = isLoading
       })
     )
-    await this.pageService.getPage(this.storyId, this.pageNumber)
+    await this.pageService.getPage(
+      this.storyId,
+      this.pageNumber,
+      this.standardChoicePath
+    )
   }
 
   ngOnDestroy(): void {

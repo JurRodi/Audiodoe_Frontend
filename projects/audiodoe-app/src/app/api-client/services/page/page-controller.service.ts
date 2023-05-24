@@ -11,10 +11,16 @@ const RESOURCE = '/page'
 export class PageControllerService {
   constructor(private http: HttpClient) {}
 
-  public getPage(storyId: string, pageNumber: string) {
+  public getPage(
+    storyId: string,
+    pageNumber: string,
+    choicePath: string | null
+  ) {
     return lastValueFrom(
       this.http.get(
-        environment.apiBaseUrl + RESOURCE + `/${storyId}/${pageNumber}`
+        environment.apiBaseUrl +
+          RESOURCE +
+          `/${storyId}/${pageNumber}/${choicePath}`
       )
     )
   }
