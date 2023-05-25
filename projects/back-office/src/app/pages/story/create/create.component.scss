@@ -1,0 +1,74 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+}
+
+.form-container {
+  width: 100%;
+  max-width: 1000px;
+  margin: auto;
+  padding: 25px;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0px 0px 5px 0px rgba(49, 54, 57, 0.2);
+}
+
+h1 {
+  font-size: 24px;
+  font-family: Arial, sans-serif;
+  margin: 10px 0 30px 0;
+}
+
+p {
+  font-size: 16px;
+  font-family: Arial, sans-serif;
+  color: rgba(49, 54, 57, 0.75);
+}
+
+label {
+  font-size: 16px;
+  font-family: Arial, sans-serif;
+}
+
+.form-container input[type="text"],
+.form-container input[type="file"],
+.form-container select,
+.form-container textarea,
+.form-container input[type="number"] {
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 4px;
+  margin: 10px 0 30px 0;
+  display: inline-block;
+  font-size: 16px;
+  font-family: Arial, sans-serif;
+  border: 1px solid rgba(49, 54, 57, 0.2);
+}
+
+.form-container input[type="text"]:focus,
+.form-container input[type="file"]:focus,
+.form-container select:focus,
+.form-container textarea:focus,
+.form-container input[type="number"]:focus {
+  outline: none;
+  border: 1px solid #9063e9;
+}
+
+.form-container button[type="submit"] {
+  background-color: #9063e9;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  font-family: Arial, sans-serif;
+}
+
+.form-container button[type="submit"]:hover {
+  background-color: #5c3d99;
+}

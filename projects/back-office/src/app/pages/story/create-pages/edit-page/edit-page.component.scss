@@ -1,0 +1,42 @@
+.toolbar {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+
+.toolbar .row {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.toolbar label {
+  font-size: 16px;
+  font-family: Arial, sans-serif;
+}
+
+.toolbar input[type="file"],
+.toolbar textarea,
+.toolbar select {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+  font-family: Arial, sans-serif;
+  width: 100%;
+  box-sizing: border-box;
+  margin-top: 10px;
+}
+
+.toolbar input[type="file"] {
+  background-color: #f5f5f5;
+}
+
+.toolbar select {
+  background-color: #f5f5f5;
+}
+
+.toolbar textarea {
+  resize: vertical;
+}

@@ -1,0 +1,13 @@
+.story-image-placeholder {
+  width: 100%;
+  height: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.story-image-placeholder img {
+  max-width: 60%;
+  max-height: 60%;
+}

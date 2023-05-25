@@ -1,0 +1,17 @@
+.page {
+  margin-bottom: 10px;
+}
+
+.page.active {
+  background-color: #f0f0f0;
+}
+
+.page img {
+  width: 100%;
+}
+
+.page a {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+}

@@ -1,0 +1,43 @@
+<!-- <p>edit-page works!</p> -->
+
+<div class="toolbar">
+  <div class="row">
+    <div class="column top-left">
+      <div class="col-container">
+        <label for="animation-upload">Animatie:</label>
+        <input type="file" id="animation-upload" name="animation-upload" />
+      </div>
+    </div>
+    <div class="column bottom-left">
+      <div class="col-container">
+        <label for="animation-position">Positie animatie:</label>
+        <select id="animation-position" name="animation-position">
+          <option value="top-left">Links boven</option>
+          <option value="top-right">Rechts boven</option>
+          <option value="bottom-left">Links onder</option>
+          <option value="bottom-right">Rechts onder</option>
+        </select>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="column top-right">
+      <div class="col-container">
+        <label for="text-input">Tekst:</label>
+        <textarea
+          id="text-input"
+          name="text-input"
+          rows="4"
+          cols="50"
+          required
+        ></textarea>
+      </div>
+    </div>
+    <div class="column bottom-right">
+      <div class="col-container">
+        <label for="audio-upload">Audio:</label>
+        <input type="file" id="audio-upload" name="audio-upload" />
+      </div>
+    </div>
+  </div>
+</div>

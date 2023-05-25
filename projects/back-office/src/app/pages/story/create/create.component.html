@@ -1,0 +1,47 @@
+<div class="form-container">
+  <form [formGroup]="storyForm" (ngSubmit)="submitForm()">
+    <h1>Vul hier je verhaalgegevens in</h1>
+
+    <label for="title">Titel:</label>
+    <input type="text" id="title" name="title" formControlName="title" />
+
+    <label for="thumbnail">Thumbnail:</label>
+    <input type="file" id="thumbnail" name="thumbnail" accept="image/*" />
+
+    <label for="description">Beschrijving:</label>
+    <textarea id="description" name="description" rows="4" cols="50"></textarea>
+
+    <label for="images-zip">Afbeeldingen Zip-bestand:</label>
+    <p>
+      *Het is aanbevolen om je afbeeldingen te benoemen als "afbeelding001",
+      "afbeelding002", enzovoort.
+    </p>
+    <input type="file" id="images-zip" name="images-zip" accept=".zip" />
+
+    <label for="duration">Duur in minuten (indicatie):</label>
+    <input type="number" id="duration" name="duration" />
+
+    <label for="age">Leeftijd:</label>
+    <select id="age" name="age">
+      <option value="">Kies een leeftijdscategorie</option>
+      <option value="3-5">4-5 jaar</option>
+      <option value="6-8">6-7 jaar</option>
+      <option value="13+">8-10 jaar</option>
+    </select>
+
+    <label for="category">Thema:</label>
+    <select id="category" name="category">
+      <option value="">Kies een thema</option>
+      <option value="Nature">Actie & avontuur</option>
+      <option value="Animals">Beroepen & sport</option>
+      <option value="Sports">Dieren & natuur</option>
+      <option value="Sports">Emoties & gevoelens</option>
+      <option value="Sports">Familie & gezin</option>
+      <option value="Sports">Feesten & Feestdagen</option>
+      <option value="Sports">Geschiedenis</option>
+      <option value="Space">Humor</option>
+    </select>
+
+    <button type="submit" [disabled]="!storyForm.valid">Volgende</button>
+  </form>
+</div>

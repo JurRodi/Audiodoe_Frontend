@@ -1,0 +1,36 @@
+.toolbar {
+  display: flex;
+  align-items: center;
+}
+
+.toolbar label {
+  font-size: 16px;
+  font-family: Arial, sans-serif;
+  margin-right: 10px;
+}
+
+.toolbar select {
+  padding: 12px;
+  border: none;
+  border-radius: 4px;
+  margin-right: 10px;
+  display: inline-block;
+  font-size: 16px;
+  font-family: Arial, sans-serif;
+  border: 1px solid rgba(49, 54, 57, 0.2);
+}
+
+.toolbar button {
+  background-color: #9063e9;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  font-family: Arial, sans-serif;
+}
+
+.toolbar button:hover {
+  background-color: #5c3d99;
+}
