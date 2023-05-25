@@ -1,0 +1,16 @@
+<div class="content-container">
+  <div class="text-container" [ngClass]="page.backgroundColor">
+    <div class="btn-group">
+      <div class="btn btn-home" (click)="navigateToStory()"></div>
+      <div class="btn btn-mute" (click)="toggleMute()"></div>
+    </div>
+    <p>{{ page.text }}</p>
+    <div class="btn-group">
+      <div class="btn btn-previous" (click)="previousPage()"></div>
+      <div class="btn btn-next" (click)="nextPage()"></div>
+    </div>
+  </div>
+  <div class="image-container">
+    <img [src]="page.backgroundImage" alt="page image" />
+  </div>
+</div>

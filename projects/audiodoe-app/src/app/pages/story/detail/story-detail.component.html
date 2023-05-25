@@ -1,0 +1,26 @@
+<div class="screen-container">
+  <div *ngIf="isLoading" class="loader-container">
+    <app-loader></app-loader>
+  </div>
+  <div
+    *ngIf="!isLoading && story"
+    [ngClass]="story.backGroundColor"
+    class="content-container"
+  >
+    <div class="btn-back" (click)="navigateBack()"></div>
+    <div class="text-wrapper">
+      <h3>{{ story.title }}</h3>
+      <p>{{ story.description }}</p>
+    </div>
+    <div>
+      <div class="time-container">
+        <div class="clock"></div>
+        <span>{{ story.duration }} min.</span>
+      </div>
+      <div class="btn" (click)="navigateToPage('1')">Lees verhaal</div>
+    </div>
+    <div class="thumbnail">
+      <img [src]="'assets/images/' + story.thumbnail" />
+    </div>
+  </div>
+</div>
