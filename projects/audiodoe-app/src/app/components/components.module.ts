@@ -5,6 +5,7 @@ import { NavigationComponent } from './navigation/navigation.component'
 import { LoaderComponent } from './loader/loader.component'
 import { PageDisplayComponent } from './page-display/page-display.component'
 import { PageChoiceComponent } from './page-choice/page-choice.component'
+import { PageInteractionComponent } from './page-interaction/page-interaction.component'
 
 @NgModule({
   declarations: [
@@ -13,6 +14,7 @@ import { PageChoiceComponent } from './page-choice/page-choice.component'
     LoaderComponent,
     PageDisplayComponent,
     PageChoiceComponent,
+    PageInteractionComponent,
   ],
   imports: [CommonModule],
   exports: [
@@ -21,6 +23,7 @@ import { PageChoiceComponent } from './page-choice/page-choice.component'
     LoaderComponent,
     PageDisplayComponent,
     PageChoiceComponent,
+    PageInteractionComponent,
   ],
 })
 export class ComponentsModule {}

@@ -11,5 +11,9 @@
       *ngIf="page.pageType === pageType.Choice"
       [page]="page"
     ></app-page-choice>
+    <app-page-interaction
+      *ngIf="page.pageType === pageType.Interaction"
+      [page]="page"
+    ></app-page-interaction>
   </div>
 </div>

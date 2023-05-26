@@ -1,0 +1,19 @@
+<div class="screen-container">
+  <div *ngIf="!start" class="content-container">
+    <div class="image-container">
+      <img [src]="page.backgroundImage" alt="instructions image" />
+    </div>
+    <div class="text-container">
+      <div class="text-wrapper">
+        <h3>{{ page.instructionsTitle }}</h3>
+        <p>{{ page.text }}</p>
+      </div>
+      <div class="btn" (click)="startInteraction()">Spelen</div>
+    </div>
+    <img src="assets/images/pim.png" alt="" class="charachter" />
+  </div>
+  <div *ngIf="start" class="content-container">
+    <!-- TODO: Finish player when design is ready -->
+    <div>Player</div>
+  </div>
+</div>

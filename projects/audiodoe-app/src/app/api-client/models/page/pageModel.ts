@@ -10,6 +10,7 @@ export interface PageModel {
   choices: string[] | null
   choiceImages: string[] | null
   choiceSplit: boolean
+  instructionsTitle: string | null
   audio: string
   text: string
   pageType: EPageType
