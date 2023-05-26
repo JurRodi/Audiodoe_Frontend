@@ -20,7 +20,8 @@ export class PageDisplayComponent {
   public previousPage(): void {
     this.pageService.getPage(
       this.page.storyId,
-      (this.page.pageNumber - 1).toString()
+      (this.page.pageNumber - 1).toString(),
+      this.page.choicePath
     )
     this.router.navigate(['story', this.page.storyId, this.page.pageNumber - 1])
   }
@@ -28,7 +29,8 @@ export class PageDisplayComponent {
   public nextPage(): void {
     this.pageService.getPage(
       this.page.storyId,
-      (this.page.pageNumber + 1).toString()
+      (this.page.pageNumber + 1).toString(),
+      this.page.choicePath
     )
     this.router.navigate(['story', this.page.storyId, this.page.pageNumber + 1])
   }

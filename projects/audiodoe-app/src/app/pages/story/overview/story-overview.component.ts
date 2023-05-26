@@ -6,6 +6,7 @@ import { CategoryModel } from '../../../api-client/models/category/categoryModel
 import { CategoryControllerService } from '../../../api-client/services/category/category-controller.service'
 import { StoryOverviewService } from '../services/story-overview.service'
 import { Router } from '@angular/router'
+import { CategoryTranslationMap } from '../../../api-client/models/category/categoryTranslation'
 
 @Component({
   selector: 'app-story',
@@ -36,14 +37,25 @@ export class StoryOverviewComponent implements OnInit, OnDestroy {
           story.thumbnail = 'assets/images/' + story.thumbnail
         })
       }),
+      this.storyService.category$.subscribe((res) => {
+        if (!res) return
+        this.categories = res
+        this.categories.forEach((category) => {
+          category.imgPath = 'assets/icons/' + category.imgPath
+          category.translatedName = CategoryTranslationMap[category.name]
+        })
+      }),
       this.storyService.storyLoader$.subscribe((res) => {
+        this.isLoading = res
+      }),
+      this.storyService.categoryLoader$.subscribe((res) => {
         this.isLoading = res
       }),
       this.storyService.searchTerm$.pipe(debounceTime(500)).subscribe((res) => {
         this.storyService.setSearchFilter(res)
       })
     )
-    this.categories = this.categoryService.getCategories()
+    await this.storyService.getCategories()
     await this.storyService.getStory()
   }
 

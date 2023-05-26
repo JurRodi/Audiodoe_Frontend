@@ -7,5 +7,9 @@
       *ngIf="page.pageType === pageType.Display"
       [page]="page"
     ></app-page-display>
+    <app-page-choice
+      *ngIf="page.pageType === pageType.Choice"
+      [page]="page"
+    ></app-page-choice>
   </div>
 </div>

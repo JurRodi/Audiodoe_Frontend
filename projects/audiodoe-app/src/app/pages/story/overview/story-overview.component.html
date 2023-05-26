@@ -24,10 +24,10 @@
         <div
           *ngFor="let category of categories"
           class="category-tile"
-          (click)="storyService.setCategoryFilter(category.value)"
+          (click)="storyService.setCategoryFilter(category.name)"
         >
           <img [src]="category.imgPath" />
-          <span>{{ category.name }}</span>
+          <span>{{ category.translatedName }}</span>
         </div>
       </div>
     </div>

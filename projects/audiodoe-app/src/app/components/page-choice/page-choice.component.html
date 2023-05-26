@@ -1,0 +1,17 @@
+<div class="screen-container">
+  <div class="choice-container">
+    <h3>{{ page.choiceQuestion }}</h3>
+    <div>
+      <img
+        [src]="'assets/images/' + page.choiceImages![0]"
+        alt="Keuze 1"
+        (click)="setChoice(page.choices![0])"
+      />
+      <img
+        [src]="'assets/images/' + page.choiceImages![1]"
+        alt="Keuze 2"
+        (click)="setChoice(page.choices![1])"
+      />
+    </div>
+  </div>
+</div>
