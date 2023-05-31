@@ -1,4 +1,6 @@
-.screen-container {
+@use '../../../assets/styles/partials/page-icons.scss';
+
+:host {
   width: 100%;
   height: 100vh;
   display: flex;
@@ -7,16 +9,29 @@
   background-color: var(--primary--purple);
 }
 
-.choice-container {
+.screen-container {
   width: 90%;
   height: 90%;
   border-radius: 20px;
+  margin: 2rem 0;
+  background-color: var(--primary--white);
+
+  .btn-group {
+    height: 10%;
+    padding: 1rem 0 0 1.5rem;
+  }
+
+  .btn {
+    filter: brightness(0) saturate(100%) invert(75%) sepia(30%) saturate(765%)
+      hue-rotate(178deg) brightness(96%) contrast(106%);
+  }
+}
+
+.choice-container {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  margin: 2rem 0;
-  background-color: var(--primary--white);
+  height: 90%;
 
   h3 {
     font-family: var(--font-family--header-1);

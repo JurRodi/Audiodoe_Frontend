@@ -18,3 +18,4 @@
     <img [src]="page.backgroundImage" alt="page image" />
   </div>
 </div>
+<audio *ngIf="!pageService.isMuted" [src]="page.audio" autoplay></audio>

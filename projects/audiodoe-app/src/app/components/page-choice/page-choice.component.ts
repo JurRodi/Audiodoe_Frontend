@@ -11,7 +11,7 @@ import { PageService } from '../../pages/story/services/page.service'
 export class PageChoiceComponent {
   @Input() page!: PageModel
 
-  constructor(private router: Router, private pageService: PageService) {}
+  constructor(private router: Router, protected pageService: PageService) {}
 
   public setChoice(choice: string): void {
     localStorage.setItem('choicePath', choice)
@@ -25,5 +25,13 @@ export class PageChoiceComponent {
       this.page.storyId,
       this.page.pageNumber + 1,
     ])
+  }
+
+  public navigateToStory(): void {
+    this.router.navigate(['story', this.page.storyId])
+  }
+
+  public toggleMute(): void {
+    this.pageService.isMuted = !this.pageService.isMuted
   }
 }

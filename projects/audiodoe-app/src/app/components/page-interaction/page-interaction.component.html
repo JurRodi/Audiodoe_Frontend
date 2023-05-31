@@ -1,6 +1,10 @@
 <div class="screen-container">
   <div *ngIf="!start" class="content-container">
     <div class="image-container">
+      <div class="btn-group">
+        <div class="btn btn-home" (click)="navigateToStory()"></div>
+        <div class="btn btn-mute" (click)="toggleMute()"></div>
+      </div>
       <img [src]="page.backgroundImage" alt="instructions image" />
     </div>
     <div class="text-container">
@@ -8,7 +12,7 @@
         <h3>{{ page.instructionsTitle }}</h3>
         <p>{{ page.text }}</p>
       </div>
-      <div class="btn" (click)="startInteraction()">Spelen</div>
+      <div class="btn-play" (click)="startInteraction()">Spelen</div>
     </div>
     <img src="assets/images/pim.png" alt="" class="charachter" />
   </div>
@@ -17,3 +21,4 @@
     <div>Player</div>
   </div>
 </div>
+<audio *ngIf="!pageService.isMuted" [src]="page.audio" autoplay></audio>
