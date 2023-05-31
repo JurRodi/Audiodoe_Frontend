@@ -1,7 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core'
 import { StoryModel } from '../../../api-client/models/story/storyModel'
 import { Subscription, debounceTime } from 'rxjs'
-import { AuthenticationService } from '../../../authentication/authentication.service'
 import { CategoryModel } from '../../../api-client/models/category/categoryModel'
 import { CategoryControllerService } from '../../../api-client/services/category/category-controller.service'
 import { StoryOverviewService } from '../services/story-overview.service'
@@ -24,7 +23,6 @@ export class StoryOverviewComponent implements OnInit, OnDestroy {
   constructor(
     protected storyService: StoryOverviewService,
     protected categoryService: CategoryControllerService,
-    private authService: AuthenticationService,
     private router: Router
   ) {}
 
