@@ -13,7 +13,7 @@ import { ActivatedRoute } from '@angular/router'
 export class PageComponent implements OnInit, OnDestroy {
   private storyId = this.route.snapshot.paramMap.get('id') || ''
   public pageNumber = this.route.snapshot.paramMap.get('pageNumber') || ''
-  public standardChoicePath = 'a'
+  public standardChoicePath = localStorage.getItem('choicePath') || 'a'
 
   public page: PageModel | null = null
   public isLoading = false
@@ -46,5 +46,6 @@ export class PageComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.subscriptions.forEach((sub) => sub.unsubscribe())
+    localStorage.removeItem('choicePath')
   }
 }

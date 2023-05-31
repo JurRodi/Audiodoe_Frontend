@@ -14,6 +14,7 @@ export class PageChoiceComponent {
   constructor(private router: Router, private pageService: PageService) {}
 
   public setChoice(choice: string): void {
+    localStorage.setItem('choicePath', choice)
     this.pageService.getPage(
       this.page.storyId,
       (this.page.pageNumber + 1).toString(),
