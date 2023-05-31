@@ -1,0 +1,22 @@
+<div class="screen-container">
+  <div class="btn-group">
+    <div class="btn btn-home" (click)="navigateToStory()"></div>
+    <div class="btn btn-mute" (click)="toggleMute()"></div>
+  </div>
+  <div class="choice-container">
+    <h3>{{ page.choiceQuestion }}</h3>
+    <div>
+      <img
+        [src]="'assets/images/' + page.choiceImages![0]"
+        alt="Keuze 1"
+        (click)="setChoice(page.choices![0])"
+      />
+      <img
+        [src]="'assets/images/' + page.choiceImages![1]"
+        alt="Keuze 2"
+        (click)="setChoice(page.choices![1])"
+      />
+    </div>
+  </div>
+</div>
+<audio *ngIf="!pageService.isMuted" [src]="page.audio" autoplay></audio>

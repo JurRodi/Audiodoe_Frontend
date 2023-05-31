@@ -7,15 +7,25 @@ import { PageModel } from '../../../api-client/models/page/pageModel'
   providedIn: 'root',
 })
 export class PageService {
+  public isMuted = false
+
   public readonly page$ = new BehaviorSubject<PageModel | null>(null)
   public readonly pageLoading$ = new BehaviorSubject<boolean>(false)
 
   constructor(private pageController: PageControllerService) {}
 
-  public async getPage(storyId: string, pageNumber: string): Promise<void> {
+  public async getPage(
+    storyId: string,
+    pageNumber: string,
+    choicePath: string
+  ): Promise<void> {
     this.pageLoading$.next(true)
 
-    const res: any = await this.pageController.getPage(storyId, pageNumber)
+    const res: any = await this.pageController.getPage(
+      storyId,
+      pageNumber,
+      choicePath
+    )
 
     this.page$.next(res)
     this.pageLoading$.next(false)

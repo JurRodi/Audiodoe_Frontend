@@ -6,7 +6,11 @@
     </div>
     <p>{{ page.text }}</p>
     <div class="btn-group">
-      <div class="btn btn-previous" (click)="previousPage()"></div>
+      <div
+        *ngIf="!page.choiceSplit && page.pageNumber !== 1"
+        class="btn btn-previous"
+        (click)="previousPage()"
+      ></div>
       <div class="btn btn-next" (click)="nextPage()"></div>
     </div>
   </div>
@@ -14,3 +18,4 @@
     <img [src]="page.backgroundImage" alt="page image" />
   </div>
 </div>
+<audio *ngIf="!pageService.isMuted" [src]="page.audio" autoplay></audio>

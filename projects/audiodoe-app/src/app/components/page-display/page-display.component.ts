@@ -11,7 +11,7 @@ import { PageService } from '../../pages/story/services/page.service'
 export class PageDisplayComponent {
   @Input() page!: PageModel
 
-  constructor(private router: Router, private pageService: PageService) {}
+  constructor(private router: Router, protected pageService: PageService) {}
 
   public navigateToStory(): void {
     this.router.navigate(['story', this.page.storyId])
@@ -20,7 +20,8 @@ export class PageDisplayComponent {
   public previousPage(): void {
     this.pageService.getPage(
       this.page.storyId,
-      (this.page.pageNumber - 1).toString()
+      (this.page.pageNumber - 1).toString(),
+      this.page.choicePath
     )
     this.router.navigate(['story', this.page.storyId, this.page.pageNumber - 1])
   }
@@ -28,13 +29,13 @@ export class PageDisplayComponent {
   public nextPage(): void {
     this.pageService.getPage(
       this.page.storyId,
-      (this.page.pageNumber + 1).toString()
+      (this.page.pageNumber + 1).toString(),
+      this.page.choicePath
     )
     this.router.navigate(['story', this.page.storyId, this.page.pageNumber + 1])
   }
 
   public toggleMute(): void {
-    // TODO: toggle mute on btn click
-    console.warn('toggleMute')
+    this.pageService.isMuted = !this.pageService.isMuted
   }
 }
