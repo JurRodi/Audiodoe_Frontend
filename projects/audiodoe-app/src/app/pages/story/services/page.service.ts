@@ -7,6 +7,8 @@ import { PageModel } from '../../../api-client/models/page/pageModel'
   providedIn: 'root',
 })
 export class PageService {
+  public isMuted = false
+
   public readonly page$ = new BehaviorSubject<PageModel | null>(null)
   public readonly pageLoading$ = new BehaviorSubject<boolean>(false)
 
