@@ -1,5 +1,13 @@
-/* You can add global styles to this file, and also import other style files */
+@use './fonts/linotte.scss';
+@use './partials/variables';
+@use './partials/colors';
 
 body {
   margin: 0;
+  font-family: 'mr-eaves-modern', sans-serif;
+  font-weight: 400;
+  font-size: var(--body-text);
+  font-style: normal;
+  color: var(--primary--black);
+  background-color: var(--primary--white);
 }
