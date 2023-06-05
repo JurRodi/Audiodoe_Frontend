@@ -2,46 +2,154 @@
   <form [formGroup]="storyForm" (ngSubmit)="submitForm()">
     <h1>Vul hier je verhaalgegevens in</h1>
 
-    <label for="title">Titel:</label>
-    <input type="text" id="title" name="title" formControlName="title" />
+    <div class="form-group">
+      <label for="title">Titel:</label>
+      <input
+        type="text"
+        id="title"
+        formControlName="title"
+        [ngClass]="{ 'is-invalid': submitted && f.title.errors }"
+      />
+      <div *ngIf="submitted && f.title.errors" class="error">
+        <div *ngIf="f.title.errors['required']">Titel is vereist</div>
+      </div>
+    </div>
 
-    <label for="thumbnail">Thumbnail:</label>
-    <input type="file" id="thumbnail" name="thumbnail" accept="image/*" />
+    <div class="form-group">
+      <label for="thumbnail">Thumbnail:</label>
+      <input
+        type="file"
+        id="thumbnail"
+        formControlName="thumbnail"
+        accept="image/*"
+        [ngClass]="{ 'is-invalid': submitted && f.thumbnail.errors }"
+        (change)="onFileSelected($event)"
+      />
+      <div *ngIf="submitted && f.thumbnail.errors" class="error">
+        <div *ngIf="f.thumbnail.errors['required']">Thumnail is vereist</div>
+      </div>
+    </div>
 
-    <label for="description">Beschrijving:</label>
-    <textarea id="description" name="description" rows="4" cols="50"></textarea>
+    <div class="form-group">
+      <label for="backGroundColor">Achtergrondkleur:</label>
+      <select
+        id="backGroundColor"
+        formControlName="backGroundColor"
+        [ngClass]="{ 'is-invalid': submitted && f.backGroundColor.errors }"
+      >
+        <option value="">Kies een kleur</option>
+        <option value="red">Rood</option>
+        <option value="blue">Blauw</option>
+        <option value="green">Groen</option>
+        <option value="yellow">Geel</option>
+        <option value="orange">Oranje</option>
+      </select>
+      <div *ngIf="submitted && f.backGroundColor.errors" class="error">
+        <div *ngIf="f.backGroundColor.errors['required']">
+          Achtergrondkleur is vereist
+        </div>
+      </div>
+    </div>
 
-    <label for="images-zip">Afbeeldingen Zip-bestand:</label>
-    <p>
-      *Het is aanbevolen om je afbeeldingen te benoemen als "afbeelding001",
-      "afbeelding002", enzovoort.
-    </p>
-    <input type="file" id="images-zip" name="images-zip" accept=".zip" />
+    <div class="form-group">
+      <label for="description">Beschrijving:</label>
+      <textarea
+        id="description"
+        formControlName="description"
+        rows="4"
+        cols="50"
+        [ngClass]="{ 'is-invalid': submitted && f.description.errors }"
+      ></textarea>
+      <div *ngIf="submitted && f.description.errors" class="error">
+        <div *ngIf="f.description.errors['required']">
+          Beschrijving is vereist
+        </div>
+      </div>
+    </div>
 
-    <label for="duration">Duur in minuten (indicatie):</label>
-    <input type="number" id="duration" name="duration" />
+    <div class="form-group">
+      <label for="images">Afbeeldingen:</label>
+      <p>
+        *Benoem je afbeeldingen als volgt: "afbeelding001", "afbeelding002",
+        enzovoort. De afbeeldingen worden in deze volgorde weergegeven in de
+        volgende stap
+      </p>
+      <input
+        type="file"
+        id="images"
+        formControlName="images"
+        accept=".zip"
+        [ngClass]="{ 'is-invalid': submitted && f.images.errors }"
+      />
+      <div *ngIf="submitted && f.images.errors" class="error">
+        <div *ngIf="f.images.errors['required']">Afbeeldingen zijn vereist</div>
+      </div>
+    </div>
 
-    <label for="age">Leeftijd:</label>
-    <select id="age" name="age">
-      <option value="">Kies een leeftijdscategorie</option>
-      <option value="3-5">4-5 jaar</option>
-      <option value="6-8">6-7 jaar</option>
-      <option value="13+">8-10 jaar</option>
-    </select>
+    <div class="form-group">
+      <label for="duration">Duur in minuten (indicatie):</label>
+      <input
+        type="number"
+        id="duration"
+        formControlName="duration"
+        [ngClass]="{ 'is-invalid': submitted && f.duration.errors }"
+      />
+      <div *ngIf="submitted && f.duration.errors" class="error">
+        <div *ngIf="f.duration.errors['required']">Duur is vereist</div>
+      </div>
+    </div>
 
-    <label for="category">Thema:</label>
-    <select id="category" name="category">
-      <option value="">Kies een thema</option>
-      <option value="Nature">Actie & avontuur</option>
-      <option value="Animals">Beroepen & sport</option>
-      <option value="Sports">Dieren & natuur</option>
-      <option value="Sports">Emoties & gevoelens</option>
-      <option value="Sports">Familie & gezin</option>
-      <option value="Sports">Feesten & Feestdagen</option>
-      <option value="Sports">Geschiedenis</option>
-      <option value="Space">Humor</option>
-    </select>
+    <div class="form-group">
+      <label for="ageGroup">Leeftijd:</label>
+      <select
+        id="ageGroup"
+        formControlName="ageGroup"
+        [ngClass]="{ 'is-invalid': submitted && f.ageGroup.errors }"
+      >
+        <option value="">Kies een leeftijdscategorie</option>
+        <option value="4to6">4-6 jaar</option>
+        <option value="6to8">6-8 jaar</option>
+        <option value="8to10">8-10 jaar</option>
+      </select>
+      <div *ngIf="submitted && f.ageGroup.errors" class="error">
+        <div *ngIf="f.ageGroup.errors['required']">Leeftijd is vereist</div>
+      </div>
+    </div>
 
-    <button type="submit" [disabled]="!storyForm.valid">Volgende</button>
+    <div class="form-group">
+      <label for="category">Thema:</label>
+      <select
+        id="category"
+        formControlName="category"
+        [ngClass]="{ 'is-invalid': submitted && f.category.errors }"
+      >
+        <option value="">Kies een thema</option>
+        <option *ngFor="let category of categories">
+          {{ category.translatedName }}
+        </option>
+      </select>
+      <div *ngIf="submitted && f.category.errors" class="error">
+        <div *ngIf="f.category.errors['required']">Categorie is vereist</div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="pageCount">Totaal aantal pagina's</label>
+      <input
+        type="number"
+        id="pageCount"
+        formControlName="pageCount"
+        [ngClass]="{ 'is-invalid': submitted && f.pageCount.errors }"
+      />
+      <div *ngIf="submitted && f.pageCount.errors" class="error">
+        <div *ngIf="f.pageCount.errors['required']">
+          aantal pagina's is vereist
+        </div>
+      </div>
+    </div>
+
+    <button [disabled]="isLoading">Volgende</button>
+    <app-loader *ngIf="isLoading"></app-loader>
+    <div *ngIf="error" class="error">{{ error }}</div>
   </form>
 </div>

@@ -9,3 +9,14 @@ export interface StoryModel {
   pageCount: number
   category: string
 }
+
+export interface StoryCreateModel {
+  title: string
+  thumbnail: string
+  backGroundColor: string
+  description: string
+  duration: string
+  ageGroup: string
+  pageCount: string
+  category: string
+}

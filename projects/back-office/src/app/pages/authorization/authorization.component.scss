@@ -3,46 +3,4 @@ form {
   max-width: 330px;
   padding: 2rem;
   margin: auto;
-
-  .form-group {
-    margin-bottom: 10px;
-    display: flex;
-    flex-direction: column;
-  }
-
-  .form-label {
-    margin-bottom: 0.5rem;
-    font-size: var(--header-3);
-    font-family: var(--font-family--header-3);
-  }
-
-  input {
-    border: 1px solid var(--primary--black);
-    border-radius: 5px;
-    padding: 0.5rem;
-    font-family: var(--font-family--header-3);
-    color: var(--primary--black);
-  }
-
-  button {
-    margin-top: 1rem;
-    padding: 0.5rem;
-    border-radius: 5px;
-    width: 100%;
-    font-family: var(--font-family--header-1);
-    font-size: var(--header-3);
-    background-color: var(--primary--green);
-    color: var(--primary--white);
-    border: none;
-    cursor: pointer;
-  }
-
-  .error {
-    color: red;
-    font-size: 0.8rem;
-  }
-
-  .is-invalid {
-    border: 1px solid red;
-  }
 }

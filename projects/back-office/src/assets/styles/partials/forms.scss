@@ -1,0 +1,53 @@
+.form-group {
+  margin-bottom: 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+label {
+  font-size: var(--header-3);
+  font-family: var(--font-family--header-3);
+}
+
+input,
+select,
+textarea {
+  border: 1px solid var(--primary--black);
+  border-radius: 5px;
+  padding: 0.5rem;
+  font-family: var(--font-family--header-3);
+  color: var(--primary--black);
+  margin-top: 0.5rem;
+}
+
+input::file-selector-button {
+  border: none;
+  border-radius: 5px;
+  padding: 0.5rem;
+  font-family: var(--font-family--header-3);
+  color: var(--primary--white);
+  background-color: var(--primary--purple);
+}
+
+button {
+  margin-top: 1rem;
+  padding: 0.5rem 1.5rem;
+  border-radius: 5px;
+  width: 100%;
+  font-size: var(--header-3);
+  color: var(--primary--white);
+  font-family: var(--font-family--header-1);
+  background-color: var(--primary--green);
+  border: none;
+  cursor: pointer;
+}
+
+.error {
+  color: red;
+  font-size: 0.8rem;
+  margin-top: 0.2rem;
+}
+
+.is-invalid {
+  border: 1px solid red;
+}

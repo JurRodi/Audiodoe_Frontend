@@ -32,7 +32,6 @@ export class AuthorizationComponent {
     this.submitted = true
 
     if (this.loginForm.invalid) {
-      console.log('invalid')
       return
     }
 

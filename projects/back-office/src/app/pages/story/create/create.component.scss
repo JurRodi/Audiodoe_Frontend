@@ -6,6 +6,16 @@ body {
   margin: 0;
 }
 
+h1 {
+  font-size: var(--header-1);
+  font-family: var(--font-family--header-1);
+  margin: 10px 0 30px 0;
+}
+
+p {
+  margin: 0;
+}
+
 .form-container {
   width: 100%;
   max-width: 1000px;
@@ -16,59 +26,22 @@ body {
   box-shadow: 0px 0px 5px 0px rgba(49, 54, 57, 0.2);
 }
 
-h1 {
-  font-size: 24px;
-  font-family: Arial, sans-serif;
-  margin: 10px 0 30px 0;
+.form-group {
+  margin-bottom: 30px;
 }
 
-p {
-  font-size: 16px;
-  font-family: Arial, sans-serif;
-  color: rgba(49, 54, 57, 0.75);
-}
-
-label {
-  font-size: 16px;
-  font-family: Arial, sans-serif;
-}
-
-.form-container input[type="text"],
-.form-container input[type="file"],
-.form-container select,
-.form-container textarea,
-.form-container input[type="number"] {
-  width: 100%;
-  padding: 12px;
-  border: none;
-  border-radius: 4px;
-  margin: 10px 0 30px 0;
-  display: inline-block;
-  font-size: 16px;
-  font-family: Arial, sans-serif;
-  border: 1px solid rgba(49, 54, 57, 0.2);
-}
-
-.form-container input[type="text"]:focus,
-.form-container input[type="file"]:focus,
-.form-container select:focus,
-.form-container textarea:focus,
-.form-container input[type="number"]:focus {
+select:focus,
+textarea:focus,
+input:focus {
   outline: none;
-  border: 1px solid #9063e9;
+  border: 1px solid var(--primary--purple);
 }
 
-.form-container button[type="submit"] {
-  background-color: #9063e9;
-  color: white;
-  padding: 12px 20px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 16px;
-  font-family: Arial, sans-serif;
+button {
+  background-color: var(--primary--purple);
+  width: max-content;
 }
 
-.form-container button[type="submit"]:hover {
-  background-color: #5c3d99;
+button:hover {
+  background-color: var(--secundary--purple--dark);
 }
