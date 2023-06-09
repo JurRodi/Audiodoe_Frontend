@@ -15,4 +15,6 @@ export interface PageModel {
   text: string
   pageType: EPageType
   storyId: string
+
+  audioFileName?: string
 }

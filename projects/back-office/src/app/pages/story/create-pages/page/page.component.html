@@ -11,20 +11,24 @@
         is, hebben altijd een "a" achter het nummer. Vanaf de eerste keuze
         krijgen de pagina's een "a" of "b" achter het nummer enzovoort.
       </p>
-      <input
-        type="file"
-        id="images"
-        formControlName="images"
-        accept=".zip"
-        [ngClass]="{ 'is-invalid': submitted && f.images.errors }"
-        (change)="onZipSelected($event)"
-      />
-      <div *ngIf="submitted && f.images.errors" class="error">
-        <div *ngIf="f.images.errors['required']">Afbeeldingen zijn vereist</div>
+      <div class="btn-container">
+        <input
+          type="file"
+          id="images"
+          formControlName="images"
+          accept=".zip"
+          [ngClass]="{ 'is-invalid': submitted && f.images.errors }"
+          (change)="onZipSelected($event)"
+        />
+        <div *ngIf="submitted && f.images.errors" class="error">
+          <div *ngIf="f.images.errors['required']">
+            Afbeeldingen zijn vereist
+          </div>
+        </div>
+        <button [disabled]="isLoading">Upload zip</button>
       </div>
     </div>
 
-    <button [disabled]="isLoading">Upload zip</button>
     <app-loader *ngIf="isLoading"></app-loader>
     <div *ngIf="error" class="error">{{ error }}</div>
   </form>

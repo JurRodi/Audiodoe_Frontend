@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core'
+import { Component, Input, OnInit } from '@angular/core'
 import { NonNullableFormBuilder, Validators } from '@angular/forms'
 import { CreateStoryService } from '../../services/create-story.service'
 import * as JSZip from 'jszip'
@@ -13,7 +13,6 @@ import { initializeApp } from 'firebase/app'
 import { environment } from 'projects/back-office/src/environments/environment'
 import { PageModel } from 'projects/audiodoe-app/src/app/api-client/models/page/pageModel'
 import { EPageType } from 'projects/back-office/src/app/api-client/models/page/pageTypes'
-import { ActivatedRoute } from '@angular/router'
 import { StoryModel } from 'projects/audiodoe-app/src/app/api-client/models/story/storyModel'
 
 const MAX_FILE_SIZE = 10 * 1024 * 1024 // 10MB
@@ -24,6 +23,8 @@ const MAX_FILE_SIZE = 10 * 1024 * 1024 // 10MB
   styleUrls: ['./page.component.scss'],
 })
 export class PageComponent implements OnInit {
+  @Input() public story?: StoryModel
+
   public zipForm = this.form.group({
     images: ['', [Validators.required]],
   })
@@ -58,29 +59,19 @@ export class PageComponent implements OnInit {
 
   public page = structuredClone(this.initPage)
 
-  public story: StoryModel | null = null
-  public storyId = this.route.snapshot.paramMap.get('storyId') || ''
-
   public get f() {
     return this.zipForm.controls
   }
 
   constructor(
     private form: NonNullableFormBuilder,
-    protected createStoryService: CreateStoryService,
-    private route: ActivatedRoute
+    protected createStoryService: CreateStoryService
   ) {}
 
   async ngOnInit(): Promise<void> {
     this.createStoryService.pages$.subscribe((pages) => {
       this.pages = pages
     })
-    this.createStoryService.story$.subscribe((story) => {
-      if (!story) return
-      this.story = story
-      this.page.storyId = story._id
-    })
-    await this.createStoryService.getStory(this.storyId)
   }
 
   public onZipSelected(event: any): void {
@@ -103,12 +94,13 @@ export class PageComponent implements OnInit {
         zip.forEach(async (relativePath, zipEntry: JSZip.JSZipObject) => {
           if (zipEntry.dir && !zipEntry.name) return
           const extension = zipEntry.name.split('.').pop()?.toLowerCase()
-          if (!allowedExtensions.includes(extension!)) return
+          if (!allowedExtensions.includes(extension!) || !this.story) return
           const filename = zipEntry.name.split('/').pop()
-          const filePath = this.story!.title + '/' + filename
+          const filePath = this.story.title + '/images/' + filename
           const fileRef = ref(this.storage, filePath)
           zipEntry.async('base64').then(async (image) => {
             await this.uploadZip(fileRef, filename!, image)
+            this.createStoryService.activePage$.next(0)
           })
         })
         this.createStoryService.pages$.next(this.pages)
