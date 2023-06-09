@@ -3,11 +3,20 @@ import { CategoryControllerService } from '../../../api-client/services/category
 import { BehaviorSubject } from 'rxjs'
 import { CategoryModel } from '../../../api-client/models/category/categoryModel'
 import { StoryControllerService } from '../../../api-client/services/story/story-controller.service'
-import { StoryCreateModel } from '../../../api-client/models/story/storyModel'
+import {
+  StoryCreateModel,
+  StoryModel,
+} from '../../../api-client/models/story/storyModel'
+import { PageModel } from '../../../api-client/models/page/pageModel'
 
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export class CreateStoryService {
   public readonly categories$ = new BehaviorSubject<CategoryModel[]>([])
+  public readonly pages$ = new BehaviorSubject<PageModel[]>([])
+  public readonly story$ = new BehaviorSubject<StoryModel | null>(null)
+  public readonly activePage$ = new BehaviorSubject<number>(0)
 
   constructor(
     private categoryController: CategoryControllerService,
@@ -21,5 +30,10 @@ export class CreateStoryService {
 
   public createStory(story: StoryCreateModel) {
     return this.storyController.createStory(story)
+  }
+
+  public async getStory(id: string) {
+    const res: any = await this.storyController.getStory(id)
+    this.story$.next(res)
   }
 }

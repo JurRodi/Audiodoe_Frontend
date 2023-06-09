@@ -1,5 +1,37 @@
-<!-- <p>page works!</p> -->
+<div *ngIf="!isZipUploaded">
+  <form [formGroup]="zipForm" (ngSubmit)="submitZipForm()">
+    <div class="form-group">
+      <label for="images">Afbeeldingen:</label>
+      <p>
+        Upload hier alle pagina afbeeldingen van het verhaal in een zip bestand.
+        Benoem je afbeeldingen als volgt: "afbeelding001a", "afbeelding002a",
+        enzovoort. De afbeeldingen worden in deze volgorde weergegeven in de
+        slider. De letter achter het nummer geeft aan welk keuzepad de pagina
+        heeft. De eerste pagina's van het verhaal, voordat er een keuze gemaakt
+        is, hebben altijd een "a" achter het nummer. Vanaf de eerste keuze
+        krijgen de pagina's een "a" of "b" achter het nummer enzovoort.
+      </p>
+      <input
+        type="file"
+        id="images"
+        formControlName="images"
+        accept=".zip"
+        [ngClass]="{ 'is-invalid': submitted && f.images.errors }"
+        (change)="onZipSelected($event)"
+      />
+      <div *ngIf="submitted && f.images.errors" class="error">
+        <div *ngIf="f.images.errors['required']">Afbeeldingen zijn vereist</div>
+      </div>
+    </div>
 
-<div class="story-image-placeholder">
-  <img src="https://audiodoe.com/images/teaser-image.png" alt="teaser image" />
+    <button [disabled]="isLoading">Upload zip</button>
+    <app-loader *ngIf="isLoading"></app-loader>
+    <div *ngIf="error" class="error">{{ error }}</div>
+  </form>
+</div>
+
+<div *ngIf="!isLoading && isZipUploaded && pages.length !== 0">
+  <app-page-display
+    [page]="pages[createStoryService.activePage$.value]"
+  ></app-page-display>
 </div>

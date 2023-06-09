@@ -27,6 +27,10 @@ input::file-selector-button {
   font-family: var(--font-family--header-3);
   color: var(--primary--white);
   background-color: var(--primary--purple);
+
+  &:hover {
+    background-color: var(--secundary--purple--dark);
+  }
 }
 
 button {
@@ -40,6 +44,10 @@ button {
   background-color: var(--primary--green);
   border: none;
   cursor: pointer;
+
+  &:hover {
+    background-color: var(--secundary--green--dark);
+  }
 }
 
 .error {

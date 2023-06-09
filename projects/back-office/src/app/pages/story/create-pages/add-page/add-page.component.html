@@ -1,11 +1,18 @@
-<!-- <p>add-page works!</p> -->
-
 <div class="toolbar">
-  <select id="add-page-type">
-    <option value="page">Pagina</option>
-    <option value="interaction">Interactie</option>
-    <option value="choice">Keuze</option>
-  </select>
-
-  <button id="add-page-btn">Toevoegen</button>
+  <div>
+    <form [formGroup]="pageForm" (ngSubmit)="addPage()">
+      <select formControlName="pageType">
+        <option value="">Kies een type</option>
+        <option *ngFor="let pageType of pageTypes">
+          {{ pageTypeTranslations[pageType] }}
+        </option>
+      </select>
+      <button class="btn-add" [disabled]="pageForm.invalid">Toevoegen</button>
+    </form>
+  </div>
+  <div>
+    <button class="btn-upload" (click)="createPages()">
+      Pagina's uploaden
+    </button>
+  </div>
 </div>

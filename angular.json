@@ -151,6 +151,7 @@
               "projects/back-office/src/favicon.ico",
               "projects/back-office/src/assets"
             ],
+            "allowedCommonJsDependencies": ["jszip"],
             "styles": ["projects/back-office/src/assets/styles/main.scss"],
             "scripts": []
           },

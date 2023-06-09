@@ -12,7 +12,7 @@ import { ComponentsModule } from '../../components/components.module'
 
 const routes: Routes = [
   { path: 'create', component: CreateComponent },
-  { path: 'create-pages', component: CreatePagesComponent },
+  { path: 'create-pages/:storyId', component: CreatePagesComponent },
   { path: '**', redirectTo: '/', pathMatch: 'full' },
 ]
 

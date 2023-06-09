@@ -14,7 +14,6 @@ import { environment } from 'projects/back-office/src/environments/environment'
   selector: 'app-create',
   templateUrl: './create.component.html',
   styleUrls: ['./create.component.scss'],
-  providers: [CreateStoryService],
 })
 export class CreateComponent implements OnInit, OnDestroy {
   public storyForm = this.form.group({
@@ -22,7 +21,6 @@ export class CreateComponent implements OnInit, OnDestroy {
     thumbnail: ['', [Validators.required]],
     backGroundColor: ['', [Validators.required]],
     description: ['', [Validators.required]],
-    images: ['', [Validators.required]],
     duration: ['', [Validators.required]],
     ageGroup: ['', [Validators.required]],
     category: ['', [Validators.required]],
@@ -73,12 +71,11 @@ export class CreateComponent implements OnInit, OnDestroy {
 
   public onFileSelected(event: any): void {
     this.thumbnail = event.target.files[0]
-    // this.uploadImage(this.thumbnail)
   }
 
-  public async uploadImage(image: File | null) {
+  public async uploadImage(image: File | null, imagePath: string) {
     if (!image) return
-    const filePath = 'thumbnails' + '/' + image.name
+    const filePath = imagePath + '/thumbnial/' + image.name
     const fileRef = ref(this.storage, filePath)
     await uploadBytes(fileRef, image)
     await getDownloadURL(fileRef).then((url) => {
@@ -96,13 +93,13 @@ export class CreateComponent implements OnInit, OnDestroy {
     this.isLoading = true
     this.error = ''
     this.story = this.storyForm.getRawValue()
-    await this.uploadImage(this.thumbnail)
+    await this.uploadImage(this.thumbnail, this.story.title)
     this.createStoryService
       .createStory(this.story!)
       .pipe(first())
       .subscribe({
-        next: () => {
-          this.router.navigate(['story/create-pages'])
+        next: (res: any) => {
+          this.router.navigate(['story/create-pages/' + res.storyId])
         },
         error: () => {
           this.error = 'error'

@@ -1,10 +1,11 @@
 import { NgModule } from '@angular/core'
 import { CommonModule } from '@angular/common'
 import { LoaderComponent } from './loader/loader.component'
+import { PageDisplayComponent } from './page-display/page-display.component'
 
 @NgModule({
-  declarations: [LoaderComponent],
+  declarations: [LoaderComponent, PageDisplayComponent],
   imports: [CommonModule],
-  exports: [LoaderComponent],
+  exports: [LoaderComponent, PageDisplayComponent],
 })
 export class ComponentsModule {}

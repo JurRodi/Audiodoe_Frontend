@@ -1,44 +1,9 @@
-<!-- <p>slider works!</p> -->
-
-<div class="sidebar">
-  <div class="page active">
-    <a href="#">
-      <img
-        src="https://audiodoe.com/images/teaser-image.png"
-        alt="teaser image"
-      />
-    </a>
-  </div>
-  <div class="page">
-    <a href="#">
-      <img
-        src="https://audiodoe.com/images/teaser-image.png"
-        alt="teaser image"
-      />
-    </a>
-  </div>
-  <div class="page">
-    <a href="#">
-      <img
-        src="https://audiodoe.com/images/teaser-image.png"
-        alt="teaser image"
-      />
-    </a>
-  </div>
-  <div class="page">
-    <a href="#">
-      <img
-        src="https://audiodoe.com/images/teaser-image.png"
-        alt="teaser image"
-      />
-    </a>
-  </div>
-  <div class="page">
-    <a href="#">
-      <img
-        src="https://audiodoe.com/images/teaser-image.png"
-        alt="teaser image"
-      />
-    </a>
+<div *ngIf="pages.length !== 0" class="sidebar">
+  <div *ngFor="let page of pages; index as i" class="page-container">
+    <app-page-display
+      [page]="pages[i]"
+      [ngClass]="{ active: i === createStoryService.activePage$.value }"
+      (click)="setActiveImage(i)"
+    ></app-page-display>
   </div>
 </div>
