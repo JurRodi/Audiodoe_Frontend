@@ -3,14 +3,10 @@
     <div class="form-group">
       <label for="audio">Audio:</label>
       <div *ngIf="!hasAudio">
-        <input
-          type="file"
-          name="audio"
-          accept=".mp3"
-          [formControl]="audio"
-          (change)="onAudioSelected($event)"
-        />
-        <button (click)="onAudioUpload()">Upload</button>
+        <input type="file" accept=".mp3" (change)="onAudioSelected($event)" />
+        <button [disabled]="pages.length === 0" (click)="onAudioUpload()">
+          Upload
+        </button>
       </div>
       <div *ngIf="hasAudio">
         <span>{{ page!.audioFileName }}</span>
@@ -31,17 +27,33 @@
     <div class="form-group">
       <label for="animation-upload">Animatie:</label>
       <div>
-        <input type="file" name="animation-upload" />
-        <button>Upload</button>
+        <div *ngIf="!hasAnimation">
+          <input
+            type="file"
+            accept=".mp4"
+            (change)="onAnimationSelected($event)"
+          />
+          <button [disabled]="pages.length === 0" (click)="onAnimationUpload()">
+            Upload
+          </button>
+        </div>
+        <div *ngIf="hasAnimation">
+          <span>{{ page!.animationFileName }}</span>
+          <button (click)="resetAnimationUpload()">Opniew kiezen</button>
+        </div>
       </div>
     </div>
     <div class="form-group">
       <label for="animation-position">Positie animatie:</label>
-      <select name="animation-position">
+      <select
+        [formControl]="animationPosition"
+        (change)="selectedPosition($event)"
+      >
         <option value="top-left">Links boven</option>
         <option value="top-right">Rechts boven</option>
         <option value="bottom-left">Links onder</option>
         <option value="bottom-right">Rechts onder</option>
+        <option value="center">Midden</option>
       </select>
     </div>
   </div>
