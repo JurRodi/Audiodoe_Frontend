@@ -30,7 +30,7 @@
         <div *ngIf="!hasAnimation">
           <input
             type="file"
-            accept=".mp4"
+            accept=".gif"
             (change)="onAnimationSelected($event)"
           />
           <button [disabled]="pages.length === 0" (click)="onAnimationUpload()">

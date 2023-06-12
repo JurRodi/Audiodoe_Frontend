@@ -15,15 +15,8 @@
   </div>
   <div class="image-container">
     <img [src]="page.backgroundImage" alt="page image" />
-    <video
-      *ngIf="page.animations"
-      [src]="page.animations[0].fileName"
-      [ngClass]="page.animations[0].position"
-      preload
-      autoplay
-      loop
-      playsinline
-      muted
-    ></video>
+    <div *ngIf="page.animations" [ngClass]="page.animations[0].position">
+      <img [src]="page.animations[0].fileName" alt="" />
+    </div>
   </div>
 </div>
