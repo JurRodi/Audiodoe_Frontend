@@ -101,10 +101,12 @@ export class PageComponent implements OnInit {
   ): Promise<void> {
     await uploadString(fileRef, image, 'base64')
     await getDownloadURL(fileRef).then((url) => {
+      if (!this.story) return
       this.page = structuredClone(this.createStoryService.initPage)
       this.page.backgroundImage = url
-      this.page.choicePath = filename!.slice(-5, -4)
       this.page.backgroundColor = 'blue'
+      this.page.storyId = this.story._id
+      this.page.choicePath = filename!.slice(-5, -4)
       this.page.pageNumber = +filename!.slice(-8, -5)
       this.pages.push(this.page)
       this.sortPages(this.pages)
