@@ -13,6 +13,18 @@
       align-items: center;
       justify-content: space-between;
       width: 100%;
+
+      select {
+        width: 90px;
+      }
+
+      input {
+        height: 36px;
+        max-height: 36px;
+        margin-top: 0;
+        width: 25px;
+        padding: 0 0 0 0.5rem;
+      }
     }
   }
 }

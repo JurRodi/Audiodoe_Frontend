@@ -9,7 +9,10 @@
         slider. De letter achter het nummer geeft aan welk keuzepad de pagina
         heeft. De eerste pagina's van het verhaal, voordat er een keuze gemaakt
         is, hebben altijd een "a" achter het nummer. Vanaf de eerste keuze
-        krijgen de pagina's een "a" of "b" achter het nummer enzovoort.
+        krijgen de pagina's een "a" of "b" achter het nummer enzovoort. Geef bij
+        het toevoegen van een keuze aan naar welk ander pad de keuze leidt.
+        Bijvoorbeeld: het huidige pad is "a" en de keuze leidt naar pad "b", dan
+        krijgt de keuze letter "b".
       </p>
       <div class="btn-container">
         <input
@@ -36,6 +39,15 @@
 
 <div *ngIf="!isLoading && isZipUploaded && pages.length !== 0">
   <app-page-display
+    *ngIf="
+      pages[createStoryService.activePage$.value].pageType === pageTypes.Display
+    "
     [page]="pages[createStoryService.activePage$.value]"
   ></app-page-display>
+  <app-page-choice
+    *ngIf="
+      pages[createStoryService.activePage$.value].pageType === pageTypes.Choice
+    "
+    [page]="pages[createStoryService.activePage$.value]"
+  ></app-page-choice>
 </div>

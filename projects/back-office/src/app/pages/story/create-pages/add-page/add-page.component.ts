@@ -1,8 +1,9 @@
-import { Component } from '@angular/core'
+import { Component, Input } from '@angular/core'
 import { CreateStoryService } from '../../services/create-story.service'
 import { NonNullableFormBuilder, Validators } from '@angular/forms'
 import { EPageType } from 'projects/audiodoe-app/src/app/api-client/models/page/pageTypes'
 import { pageTypeTranslations } from 'projects/back-office/src/app/api-client/models/page/pageTypeTranslations'
+import { StoryModel } from 'projects/back-office/src/app/api-client/models/story/storyModel'
 
 @Component({
   selector: 'app-add-page',
@@ -10,17 +11,25 @@ import { pageTypeTranslations } from 'projects/back-office/src/app/api-client/mo
   styleUrls: ['./add-page.component.scss'],
 })
 export class AddPageComponent {
+  @Input() public story?: StoryModel
+
   public pageForm = this.form.group({
     pageType: ['', [Validators.required]],
+    choicePath: ['', [Validators.required, Validators.pattern('^[a-z]+$')]],
   })
 
-  public pageTypes: EPageType[] = [
-    EPageType.Display,
-    EPageType.Choice,
-    EPageType.Interaction,
-  ]
-
+  public pageTypes: EPageType[] = [EPageType.Choice, EPageType.Interaction]
   public pageTypeTranslations = pageTypeTranslations
+
+  public page = structuredClone(this.createStoryService.initPage)
+  public pages = this.createStoryService.pages$.value
+
+  public submitted = false
+  public isLoading = false
+
+  public get f() {
+    return this.pageForm.controls
+  }
 
   constructor(
     private createStoryService: CreateStoryService,
@@ -28,11 +37,65 @@ export class AddPageComponent {
   ) {}
 
   public addPage() {
-    console.warn('add page')
+    this.submitted = true
+    this.isLoading = true
+
+    if (this.pageForm.invalid) {
+      return
+    }
+
+    this.createPage(this.f.pageType.value as EPageType, this.f.choicePath.value)
+    this.page = structuredClone(this.createStoryService.initPage)
+    this.submitted = false
+    this.isLoading = false
+  }
+
+  public createPage(pageType: EPageType, choicePath: string) {
+    this.page.pageType = pageType
+    if (this.page.pageType === EPageType.Choice) {
+      const currentPath =
+        this.pages[this.createStoryService.activePage$.value].choicePath
+      this.page.choices = [currentPath, choicePath]
+    }
+    this.page.storyId = this.story!._id
+    this.page.pageNumber = this.createStoryService.activePage$.value + 1
+    this.createStoryService.pages$.value.splice(
+      this.createStoryService.activePage$.value + 1,
+      0,
+      this.page
+    )
+    let reachedAddedPage = false
+    this.createStoryService.pages$.value.forEach((page) => {
+      if (
+        (page.pageType === EPageType.Choice ||
+          page.pageType === EPageType.Interaction) &&
+        !page.hasPageNumberChanged
+      ) {
+        reachedAddedPage = true
+        page.hasPageNumberChanged = true
+        page.pageNumber =
+          this.pages[this.createStoryService.activePage$.value].pageNumber + 1
+        page.choicePath =
+          this.pages[this.createStoryService.activePage$.value].choicePath
+      }
+      if (
+        reachedAddedPage &&
+        !page.hasPageNumberChanged &&
+        page.pageNumber !==
+          this.pages[this.createStoryService.activePage$.value].pageNumber &&
+        (page.choicePath ===
+          this.pages[this.createStoryService.activePage$.value].choicePath ||
+          this.pages[
+            this.createStoryService.activePage$.value + 1
+          ].choices?.includes(page.choicePath))
+      ) {
+        page.pageNumber++
+      }
+    })
   }
 
   public createPages() {
-    // this.createStoryService.createPages()
+    // this.createStoryService.createPage()
     console.warn('create pages')
   }
 }

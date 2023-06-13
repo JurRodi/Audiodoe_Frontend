@@ -1,0 +1,25 @@
+<div class="screen-container">
+  <div class="btn-group">
+    <div class="btn btn-home"></div>
+    <div class="btn btn-mute"></div>
+  </div>
+  <div class="choice-container">
+    <h3>{{ page.choiceQuestion || '' }}</h3>
+    <div>
+      <div>
+        <img
+          *ngIf="page.choiceImage1"
+          [src]="page.choiceImage1"
+          alt="Keuze 1"
+        />
+      </div>
+      <div>
+        <img
+          *ngIf="page.choiceImage2"
+          [src]="page.choiceImage2"
+          alt="Keuze 2"
+        />
+      </div>
+    </div>
+  </div>
+</div>

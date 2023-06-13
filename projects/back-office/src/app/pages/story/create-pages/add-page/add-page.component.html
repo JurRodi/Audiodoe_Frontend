@@ -1,13 +1,24 @@
 <div class="toolbar">
   <div>
     <form [formGroup]="pageForm" (ngSubmit)="addPage()">
-      <select formControlName="pageType">
+      <select
+        formControlName="pageType"
+        [ngClass]="{ 'is-invalid': submitted && f.pageType.errors }"
+      >
         <option value="">Kies een type</option>
-        <option *ngFor="let pageType of pageTypes">
+        <option *ngFor="let pageType of pageTypes" [value]="pageType">
           {{ pageTypeTranslations[pageType] }}
         </option>
       </select>
-      <button class="btn-add" [disabled]="pageForm.invalid">Toevoegen</button>
+      <input
+        type="text"
+        formControlName="choicePath"
+        [hidden]="f.pageType.value !== 'Choice'"
+        [ngClass]="{ 'is-invalid': submitted && f.choicePath.errors }"
+      />
+      <button class="btn-add" [disabled]="isLoading || pages.length === 0">
+        Toevoegen
+      </button>
     </form>
   </div>
   <div>

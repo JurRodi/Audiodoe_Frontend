@@ -11,9 +11,9 @@ import {
 } from 'firebase/storage'
 import { initializeApp } from 'firebase/app'
 import { environment } from 'projects/back-office/src/environments/environment'
-import { PageModel } from 'projects/audiodoe-app/src/app/api-client/models/page/pageModel'
-import { EPageType } from 'projects/back-office/src/app/api-client/models/page/pageTypes'
 import { StoryModel } from 'projects/audiodoe-app/src/app/api-client/models/story/storyModel'
+import { PageModel } from 'projects/back-office/src/app/api-client/models/page/pageModel'
+import { EPageType } from 'projects/back-office/src/app/api-client/models/page/pageTypes'
 
 const MAX_FILE_SIZE = 10 * 1024 * 1024 // 10MB
 
@@ -40,24 +40,9 @@ export class PageComponent implements OnInit {
   public zip: File | null = null
 
   public pages: PageModel[] = []
-  public initPage: PageModel = {
-    pageNumber: 1,
-    choicePath: 'a',
-    pageType: EPageType.Display,
-    storyId: '',
-    text: '',
-    audio: '',
-    backgroundImage: null,
-    backgroundColor: null,
-    animations: null,
-    choiceQuestion: null,
-    choices: null,
-    choiceImages: null,
-    choiceSplit: false,
-    instructionsTitle: null,
-  }
+  public pageTypes = EPageType
 
-  public page = structuredClone(this.initPage)
+  public page = structuredClone(this.createStoryService.initPage)
 
   public get f() {
     return this.zipForm.controls
@@ -116,7 +101,7 @@ export class PageComponent implements OnInit {
   ): Promise<void> {
     await uploadString(fileRef, image, 'base64')
     await getDownloadURL(fileRef).then((url) => {
-      this.page = structuredClone(this.initPage)
+      this.page = structuredClone(this.createStoryService.initPage)
       this.page.backgroundImage = url
       this.page.choicePath = filename!.slice(-5, -4)
       this.page.backgroundColor = 'blue'

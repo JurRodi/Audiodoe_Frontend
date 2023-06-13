@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core'
 import { CreateStoryService } from '../../services/create-story.service'
-import { PageModel } from 'projects/audiodoe-app/src/app/api-client/models/page/pageModel'
+import { PageModel } from 'projects/back-office/src/app/api-client/models/page/pageModel'
+import { EPageType } from 'projects/back-office/src/app/api-client/models/page/pageTypes'
 
 @Component({
   selector: 'app-slider',
@@ -9,6 +10,8 @@ import { PageModel } from 'projects/audiodoe-app/src/app/api-client/models/page/
 })
 export class SliderComponent implements OnInit {
   public pages: PageModel[] = []
+
+  public pageType = EPageType
 
   constructor(protected createStoryService: CreateStoryService) {}
 

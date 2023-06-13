@@ -24,37 +24,83 @@
     </div>
   </div>
   <div class="row">
-    <div class="form-group">
-      <label for="animation-upload">Animatie:</label>
-      <div>
-        <div *ngIf="!hasAnimation">
-          <input
-            type="file"
-            accept=".gif"
-            (change)="onAnimationSelected($event)"
-          />
-          <button [disabled]="pages.length === 0" (click)="onAnimationUpload()">
-            Upload
-          </button>
-        </div>
-        <div *ngIf="hasAnimation">
-          <span>{{ page!.animationFileName }}</span>
-          <button (click)="resetAnimationUpload()">Opniew kiezen</button>
+    <ng-template
+      [ngIf]="page && page.pageType === 'Choice'"
+      [ngIfElse]="display"
+    >
+      <div class="form-group">
+        <label for="">Keuze 1:</label>
+        <div>
+          <div *ngIf="!hasChoice1">
+            <input
+              type="file"
+              accept="images/*"
+              (change)="onImageSelected($event, true)"
+            />
+            <button [disabled]="!pages.length" (click)="onImageUpload(true)">
+              Upload
+            </button>
+          </div>
+          <div *ngIf="hasChoice1">
+            <span>{{ page!.animationFileName }}</span>
+            <button (click)="resetImageUpload(true)">Opniew kiezen</button>
+          </div>
         </div>
       </div>
-    </div>
-    <div class="form-group">
-      <label for="animation-position">Positie animatie:</label>
-      <select
-        [formControl]="animationPosition"
-        (change)="selectedPosition($event)"
-      >
-        <option value="top-left">Links boven</option>
-        <option value="top-right">Rechts boven</option>
-        <option value="bottom-left">Links onder</option>
-        <option value="bottom-right">Rechts onder</option>
-        <option value="center">Midden</option>
-      </select>
-    </div>
+      <div class="form-group">
+        <label for="">Keuze 1:</label>
+        <div>
+          <div *ngIf="!hasChoice2">
+            <input
+              type="file"
+              accept="images/*"
+              (change)="onImageSelected($event, false)"
+            />
+            <button [disabled]="!pages.length" (click)="onImageUpload(false)">
+              Upload
+            </button>
+          </div>
+          <div *ngIf="hasChoice2">
+            <span>{{ page!.animationFileName }}</span>
+            <button (click)="resetImageUpload(false)">Opniew kiezen</button>
+          </div>
+        </div>
+      </div>
+    </ng-template>
+
+    <ng-template #display>
+      <div class="form-group">
+        <label for="animation-upload">Animatie:</label>
+        <div>
+          <div *ngIf="!hasAnimation">
+            <input
+              type="file"
+              accept=".gif"
+              (change)="onAnimationSelected($event)"
+            />
+            <button [disabled]="!pages.length" (click)="onAnimationUpload()">
+              Upload
+            </button>
+          </div>
+          <div *ngIf="hasAnimation">
+            <span>{{ page!.animationFileName }}</span>
+            <button (click)="resetAnimationUpload()">Opniew kiezen</button>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="animation-position">Positie animatie:</label>
+        <select
+          [formControl]="animationPosition"
+          (change)="selectedPosition($event)"
+        >
+          <option value="top-left">Links boven</option>
+          <option value="top-right">Rechts boven</option>
+          <option value="bottom-left">Links onder</option>
+          <option value="bottom-right">Rechts onder</option>
+          <option value="center">Midden</option>
+        </select>
+      </div>
+    </ng-template>
   </div>
 </div>

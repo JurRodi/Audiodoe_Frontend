@@ -8,11 +8,30 @@ import {
   StoryModel,
 } from '../../../api-client/models/story/storyModel'
 import { PageModel } from '../../../api-client/models/page/pageModel'
+import { EPageType } from '../../../api-client/models/page/pageTypes'
 
 @Injectable({
   providedIn: 'root',
 })
 export class CreateStoryService {
+  public initPage: PageModel = {
+    pageNumber: 1,
+    choicePath: 'a',
+    pageType: EPageType.Display,
+    storyId: '',
+    text: '',
+    audio: '',
+    backgroundImage: null,
+    backgroundColor: null,
+    animations: null,
+    choiceQuestion: null,
+    choices: null,
+    choiceImage1: null,
+    choiceImage2: null,
+    choiceSplit: false,
+    instructionsTitle: null,
+  }
+
   public readonly categories$ = new BehaviorSubject<CategoryModel[]>([])
   public readonly pages$ = new BehaviorSubject<PageModel[]>([])
   public readonly story$ = new BehaviorSubject<StoryModel | null>(null)

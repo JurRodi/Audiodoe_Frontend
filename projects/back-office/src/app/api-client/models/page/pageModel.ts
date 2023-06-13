@@ -8,7 +8,8 @@ export interface PageModel {
   choicePath: string
   choiceQuestion: string | null
   choices: string[] | null
-  choiceImages: string[] | []
+  choiceImage1: string | null
+  choiceImage2: string | null
   choiceSplit: boolean
   instructionsTitle: string | null
   audio: string
@@ -19,6 +20,8 @@ export interface PageModel {
   audioFileName?: string
   animationFileName?: string
   hasPageNumberChanged?: boolean
+  choiceImage1FileName?: string
+  choiceImage2FileName?: string
 }
 
 export interface Animation {

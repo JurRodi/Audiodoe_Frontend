@@ -38,8 +38,12 @@ export class EditPageComponent {
     position: null,
   }
   public animation = structuredClone(this.initAnimation)
-
   public animationPosition = new FormControl('')
+
+  public hasChoice1 = false
+  public hasChoice2 = false
+  public choice1File: File | null = null
+  public choice2File: File | null = null
 
   private app = initializeApp(environment.firebaseConfig)
   private storage = getStorage(this.app)
@@ -65,7 +69,11 @@ export class EditPageComponent {
 
   public onTextChange(): void {
     if (!this.page) return
-    this.page.text = this.text.value!
+    if (this.page.pageType === 'Choice') {
+      this.page.choiceQuestion = this.text.value!
+    } else {
+      this.page.text = this.text.value!
+    }
     this.createStoryService.pages$.value[
       this.createStoryService.activePage$.value
     ] = this.page
@@ -141,5 +149,50 @@ export class EditPageComponent {
       this.createStoryService.activePage$.value
     ] = this.page!
     console.log(this.createStoryService.pages$.value)
+  }
+
+  public onImageSelected(event: any, isChoice1: boolean): void {
+    const file = event.target.files[0]
+    if (isChoice1) {
+      this.choice1File = file
+    } else {
+      this.choice2File = file
+    }
+  }
+
+  public onImageUpload(isChoice1: boolean): void {
+    if (!this.story || !this.page) return
+    const file = isChoice1 ? this.choice1File : this.choice2File
+    if (!file) return
+    isChoice1
+      ? (this.page.choiceImage1FileName = file.name)
+      : (this.page.choiceImage2FileName = file.name)
+    const filePath = this.story.title + '/images/' + file.name
+    const fileRef = ref(this.storage, filePath)
+    this.uploadImage(fileRef, file, isChoice1)
+  }
+
+  public async uploadImage(
+    fileRef: StorageReference,
+    file: File,
+    isChoice1: boolean
+  ): Promise<void> {
+    await uploadBytes(fileRef, file)
+    await getDownloadURL(fileRef).then((url) => {
+      if (isChoice1) {
+        this.page!.choiceImage1 = url
+        this.hasChoice1 = true
+      } else {
+        this.page!.choiceImage2 = url
+        this.hasChoice2 = true
+      }
+    })
+    this.createStoryService.pages$.value[
+      this.createStoryService.activePage$.value
+    ] = this.page!
+  }
+
+  public resetImageUpload(isChoice1: boolean): void {
+    isChoice1 ? (this.hasChoice1 = false) : (this.hasChoice2 = false)
   }
 }
