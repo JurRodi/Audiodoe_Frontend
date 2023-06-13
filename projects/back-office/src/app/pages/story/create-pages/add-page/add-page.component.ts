@@ -1,6 +1,11 @@
 import { Component, Input } from '@angular/core'
 import { CreateStoryService } from '../../services/create-story.service'
-import { NonNullableFormBuilder, Validators } from '@angular/forms'
+import {
+  AbstractControl,
+  NonNullableFormBuilder,
+  ValidationErrors,
+  Validators,
+} from '@angular/forms'
 import { EPageType } from 'projects/audiodoe-app/src/app/api-client/models/page/pageTypes'
 import { pageTypeTranslations } from 'projects/back-office/src/app/api-client/models/page/pageTypeTranslations'
 import { StoryModel } from 'projects/back-office/src/app/api-client/models/story/storyModel'
@@ -13,10 +18,26 @@ import { StoryModel } from 'projects/back-office/src/app/api-client/models/story
 export class AddPageComponent {
   @Input() public story?: StoryModel
 
-  public pageForm = this.form.group({
-    pageType: ['', [Validators.required]],
-    choicePath: ['', [Validators.required, Validators.pattern('^[a-z]+$')]],
-  })
+  public pageForm = this.form.group(
+    {
+      pageType: ['', [Validators.required]],
+      choicePath: ['', [Validators.pattern('^[a-z]+$')]],
+    },
+    { validators: this.choicePathValidator }
+  )
+
+  private choicePathValidator(
+    control: AbstractControl
+  ): ValidationErrors | null {
+    const pageType = control.get('pageType')?.value
+    const choicePath = control.get('choicePath')?.value
+
+    if (pageType === EPageType.Choice && !choicePath) {
+      return { requiredForChoice: true }
+    }
+
+    return null
+  }
 
   public pageTypes: EPageType[] = [EPageType.Choice, EPageType.Interaction]
   public pageTypeTranslations = pageTypeTranslations
@@ -41,6 +62,7 @@ export class AddPageComponent {
     this.isLoading = true
 
     if (this.pageForm.invalid) {
+      this.isLoading = false
       return
     }
 

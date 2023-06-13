@@ -14,7 +14,7 @@
         type="text"
         formControlName="choicePath"
         [hidden]="f.pageType.value !== 'Choice'"
-        [ngClass]="{ 'is-invalid': submitted && f.choicePath.errors }"
+        [ngClass]="{ 'is-invalid': submitted && pageForm.errors }"
       />
       <button class="btn-add" [disabled]="isLoading || pages.length === 0">
         Toevoegen
