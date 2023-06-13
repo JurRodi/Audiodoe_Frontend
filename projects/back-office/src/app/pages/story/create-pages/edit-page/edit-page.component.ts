@@ -118,7 +118,7 @@ export class EditPageComponent {
     if (!this.animationFile || !this.story || !this.page) return
     this.page.animationFileName = this.animationFile.name
     const filePath =
-      this.story.title + '/animation/' + this.page.animationFileName
+      this.story.title + '/animations/' + this.page.animationFileName
     const fileRef = ref(this.storage, filePath)
     this.uploadAnimation(fileRef, this.animationFile)
   }
@@ -167,7 +167,7 @@ export class EditPageComponent {
     isChoice1
       ? (this.page.choiceImage1FileName = file.name)
       : (this.page.choiceImage2FileName = file.name)
-    const filePath = this.story.title + '/images/' + file.name
+    const filePath = this.story.title + '/choiceImages/' + file.name
     const fileRef = ref(this.storage, filePath)
     this.uploadImage(fileRef, file, isChoice1)
   }

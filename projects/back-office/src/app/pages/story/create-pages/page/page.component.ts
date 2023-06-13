@@ -81,7 +81,7 @@ export class PageComponent implements OnInit {
           const extension = zipEntry.name.split('.').pop()?.toLowerCase()
           if (!allowedExtensions.includes(extension!) || !this.story) return
           const filename = zipEntry.name.split('/').pop()
-          const filePath = this.story.title + '/images/' + filename
+          const filePath = this.story.title + '/backgroundImages/' + filename
           const fileRef = ref(this.storage, filePath)
           zipEntry.async('base64').then(async (image) => {
             await this.uploadZip(fileRef, filename!, image)
