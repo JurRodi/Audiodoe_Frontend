@@ -7,12 +7,12 @@
     <h3>{{ page.choiceQuestion }}</h3>
     <div>
       <img
-        [src]="'assets/images/' + page.choiceImages![0]"
+        [src]="page.choiceImage1"
         alt="Keuze 1"
         (click)="setChoice(page.choices![0])"
       />
       <img
-        [src]="'assets/images/' + page.choiceImages![1]"
+        [src]="page.choiceImage2"
         alt="Keuze 2"
         (click)="setChoice(page.choices![1])"
       />

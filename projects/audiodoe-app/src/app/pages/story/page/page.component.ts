@@ -31,8 +31,6 @@ export class PageComponent implements OnInit, OnDestroy {
       this.pageService.page$.subscribe((page) => {
         if (!page) return
         this.page = page
-        this.page.backgroundImage = `assets/images/${page.backgroundImage}`
-        this.page.audio = `assets/audio/${page.audio}`
       }),
       this.pageService.pageLoading$.subscribe((isLoading) => {
         this.isLoading = isLoading

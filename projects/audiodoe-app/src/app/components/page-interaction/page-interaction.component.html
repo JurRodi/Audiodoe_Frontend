@@ -1,24 +1,31 @@
 <div class="screen-container">
   <div *ngIf="!start" class="content-container">
-    <div class="image-container">
+    <div
+      class="image-container"
+      [ngStyle]="{ 'background-color': page.backgroundColor }"
+    >
       <div class="btn-group">
         <div class="btn btn-home" (click)="navigateToStory()"></div>
         <div class="btn btn-mute" (click)="toggleMute()"></div>
       </div>
-      <img [src]="page.backgroundImage" alt="instructions image" />
+      <img *ngIf="page.animations" [src]="page.animations[0].filename" alt="" />
     </div>
     <div class="text-container">
       <div class="text-wrapper">
         <h3>{{ page.instructionsTitle }}</h3>
         <p>{{ page.text }}</p>
       </div>
-      <div class="btn-play" (click)="startInteraction()">Spelen</div>
+      <div class="btn-interaction" (click)="startInteraction()">Spelen</div>
     </div>
     <img src="assets/images/pim.png" alt="" class="charachter" />
   </div>
   <div *ngIf="start" class="content-container">
-    <!-- TODO: Finish player when design is ready -->
-    <div>Player</div>
+    <div class="btn-interaction next" (click)="nextPage()">Verder</div>
+    <ng-template [ngIf]="page.interaction">
+      <app-interaction-colorize
+        *ngIf="page.interaction.type === interactionTypes.Colorize"
+      ></app-interaction-colorize>
+    </ng-template>
   </div>
 </div>
 <audio *ngIf="!pageService.isMuted" [src]="page.audio" autoplay></audio>

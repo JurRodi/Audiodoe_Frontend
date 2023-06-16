@@ -31,9 +31,6 @@ export class StoryOverviewComponent implements OnInit, OnDestroy {
       this.storyService.stories$.subscribe((res) => {
         if (!res) return
         this.stories = res
-        this.stories.forEach((story) => {
-          story.thumbnail = 'assets/images/' + story.thumbnail
-        })
       }),
       this.storyService.category$.subscribe((res) => {
         if (!res) return

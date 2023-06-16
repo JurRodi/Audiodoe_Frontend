@@ -16,6 +16,9 @@
   </div>
   <div class="image-container">
     <img [src]="page.backgroundImage" alt="page image" />
+    <div *ngIf="page.animations" [ngClass]="page.animations[0].position">
+      <img [src]="page.animations[0].filename" alt="" />
+    </div>
   </div>
 </div>
 <audio *ngIf="!pageService.isMuted" [src]="page.audio" autoplay></audio>

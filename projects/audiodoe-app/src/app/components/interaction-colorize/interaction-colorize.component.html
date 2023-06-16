@@ -1,0 +1,26 @@
+<div class="pencils">
+  <div class="pencil" *ngFor="let pencil of pencils">
+    <img
+      [src]="pencil.image"
+      alt=""
+      [ngClass]="{ 'is-selected': pencil.selected }"
+      (click)="setActive(pencil)"
+    />
+  </div>
+</div>
+<ng-template [ngIf]="page!.interaction">
+  <div class="interactie-container">
+    <div
+      *ngFor="let clickable of clickables; let i = index"
+      class="clickable-container"
+      [ngStyle]="setShape(i)"
+    >
+      <img
+        [src]="page?.interaction?.clickable?.filename"
+        alt=""
+        [ngClass]="'filter-' + clickables[i].color"
+        (click)="setColor(i)"
+      />
+    </div>
+  </div>
+</ng-template>

@@ -154,6 +154,9 @@
   margin-top: 0.5rem;
   overflow: scroll;
   padding-bottom: 1.5rem;
+  &::-webkit-scrollbar {
+    display: none;
+  }
 
   .tile {
     width: calc(50% - 0.5rem);
