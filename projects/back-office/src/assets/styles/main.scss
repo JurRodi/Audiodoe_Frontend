@@ -1,0 +1,14 @@
+@use './fonts/linotte.scss';
+@use './partials/variables';
+@use './partials/colors';
+@use './partials/forms';
+
+body {
+  margin: 0;
+  font-family: 'mr-eaves-modern', sans-serif;
+  font-weight: 400;
+  font-size: var(--body-text);
+  font-style: normal;
+  color: var(--primary--black);
+  background-color: var(--primary--white);
+}

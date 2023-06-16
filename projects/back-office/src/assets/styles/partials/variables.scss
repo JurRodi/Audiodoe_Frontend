@@ -1,0 +1,44 @@
+:root {
+  /* Color styles */
+  --primary--purple: #9063e9;
+  --primary--blue: #6fbefb;
+  --primary--green: #7ec186;
+  --primary--yellow: #ffea56;
+  --primary--orange: #ffb750;
+  --primary--red: #fe797b;
+  --primary--black: #313639;
+  --primary--white: #faf9f6;
+  --secundary--purple--dark: #5c3d99;
+  --secundary--blue--dark: #599fd6;
+  --secundary--green--dark: #4f7a54;
+  --secundary--yellow--dark: #d5c345;
+  --secundary--orange--dark: #d49740;
+  --secundary--red--dark: #db6163;
+  --secundary--purple--light: #a682ed;
+  --secundary--blue--light: #8ccbfc;
+  --secundary--green--light: #98cd9e;
+  --secundary--yellow--light: #ffee78;
+  --secundary--orange--light: #ffc573;
+  --secundary--red--light: #fe9495;
+  --tertiary--purple: #d3c1f6;
+  --tertiary--blue: #a9d8fd;
+  --tertiary--green: #b2dab6;
+  --tertiary--yellow: #fff29a;
+  --tertiary--orange: #ffd496;
+  --tertiary--red: #feafb0;
+
+  --font-family--header-1: 'linotte-bold', sans-serif;
+  --font-family--header-2: 'linotte-semiBold', sans-serif;
+  --font-family--header-3: 'linotte-regular', sans-serif;
+
+  /* Text-size styles */
+  --header-3: 1.38rem;
+  --header-2: 1.62rem;
+  --header-1: 2rem;
+  --body-text: 1rem;
+  --titel: 3rem;
+  --story--text--tablet: 2.25rem;
+  --story--text--desktop: 3rem;
+  --story--text--mobile: 1.31rem;
+  --navigatie---footer: 1.38rem;
+}

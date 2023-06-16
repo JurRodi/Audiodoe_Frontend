@@ -1,0 +1,28 @@
+.btn-group {
+  display: flex;
+}
+
+.btn {
+  width: 32px;
+  height: 32px;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  margin-right: 1rem;
+}
+
+.btn-home {
+  background-image: url('../../../assets/icons/home.svg');
+}
+
+.btn-mute {
+  background-image: url('../../../assets/icons/mute.svg');
+}
+
+.btn-previous {
+  background-image: url('../../../assets/icons/previous.svg');
+}
+
+.btn-next {
+  background-image: url('../../../assets/icons/next.svg');
+}

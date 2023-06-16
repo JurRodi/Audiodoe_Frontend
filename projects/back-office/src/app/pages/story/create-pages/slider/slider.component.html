@@ -1,0 +1,22 @@
+<div *ngIf="pages.length !== 0" class="sidebar">
+  <div *ngFor="let page of pages; index as i" class="page-container">
+    <app-page-display
+      *ngIf="page.pageType === pageType.Display"
+      [page]="pages[i]"
+      [ngClass]="{ active: i === createStoryService.activePage$.value }"
+      (click)="setActiveImage(i)"
+    ></app-page-display>
+    <app-page-choice
+      *ngIf="page.pageType === pageType.Choice"
+      [page]="pages[i]"
+      [ngClass]="{ active: i === createStoryService.activePage$.value }"
+      (click)="setActiveImage(i)"
+    ></app-page-choice>
+    <app-page-interaction
+      *ngIf="page.pageType === pageType.Interaction"
+      [page]="pages[i]"
+      [ngClass]="{ active: i === createStoryService.activePage$.value }"
+      (click)="setActiveImage(i)"
+    ></app-page-interaction>
+  </div>
+</div>

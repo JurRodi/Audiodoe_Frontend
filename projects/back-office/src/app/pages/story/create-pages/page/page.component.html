@@ -1,0 +1,70 @@
+<div *ngIf="!isZipUploaded" class="screen-container">
+  <form [formGroup]="zipForm" (ngSubmit)="submitZipForm()">
+    <div class="form-group">
+      <label for="images">Afbeeldingen:</label>
+      <p>
+        Upload hier alle pagina afbeeldingen van het verhaal in een zip bestand.
+        Benoem je afbeeldingen als volgt: "afbeelding001a", "afbeelding002a",
+        enzovoort. De afbeeldingen worden in deze volgorde weergegeven in de
+        slider. De letter achter het nummer geeft aan welk keuzepad de pagina
+        heeft. De eerste pagina's van het verhaal, voordat er een keuze gemaakt
+        is, hebben altijd een "a" achter het nummer. Vanaf de eerste keuze
+        krijgen de pagina's een "a" of "b" achter het nummer enzovoort. Geef bij
+        het toevoegen van een keuze aan naar welk ander pad de keuze leidt.
+        Bijvoorbeeld: het huidige pad is "a" en de keuze leidt naar pad "b", dan
+        krijgt de keuze letter "b".
+      </p>
+      <div class="btn-container">
+        <input
+          type="file"
+          id="images"
+          formControlName="images"
+          accept=".zip"
+          [ngClass]="{ 'is-invalid': submitted && f.images.errors }"
+          (change)="onZipSelected($event)"
+        />
+        <div *ngIf="submitted && f.images.errors" class="error">
+          <div *ngIf="f.images.errors['required']">
+            Afbeeldingen zijn vereist
+          </div>
+        </div>
+        <button [disabled]="isLoading">Upload zip</button>
+      </div>
+    </div>
+
+    <app-loader *ngIf="isLoading"></app-loader>
+    <div *ngIf="error" class="error">{{ error }}</div>
+  </form>
+</div>
+
+<div
+  *ngIf="!isLoading && isZipUploaded && pages.length"
+  class="screen-container"
+>
+  <app-page-display
+    *ngIf="
+      pages[createStoryService.activePage$.value].pageType === pageTypes.Display
+    "
+    [page]="pages[createStoryService.activePage$.value]"
+  ></app-page-display>
+  <app-page-choice
+    *ngIf="
+      pages[createStoryService.activePage$.value].pageType === pageTypes.Choice
+    "
+    [page]="pages[createStoryService.activePage$.value]"
+  ></app-page-choice>
+  <ng-template
+    [ngIf]="
+      pages[createStoryService.activePage$.value].pageType ===
+      pageTypes.Interaction
+    "
+  >
+    <app-page-interaction
+      [page]="pages[createStoryService.activePage$.value]"
+    ></app-page-interaction>
+    <div class="interaction-controls">
+      <div class="btn btn-previous" (click)="goToOverview()"></div>
+      <div class="btn btn-next" (click)="goToGame()"></div>
+    </div>
+  </ng-template>
+</div>

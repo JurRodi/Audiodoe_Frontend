@@ -151,6 +151,7 @@
               "projects/back-office/src/favicon.ico",
               "projects/back-office/src/assets"
             ],
+            "allowedCommonJsDependencies": ["jszip"],
             "styles": ["projects/back-office/src/assets/styles/main.scss"],
             "scripts": []
           },
@@ -176,7 +177,13 @@
               "vendorChunk": true,
               "extractLicenses": false,
               "sourceMap": true,
-              "namedChunks": true
+              "namedChunks": true,
+              "fileReplacements": [
+                {
+                  "replace": "projects/back-office/src/environments/environment.ts",
+                  "with": "projects/back-office/src/environments/environment.development.ts"
+                }
+              ]
             }
           },
           "defaultConfiguration": "production"
@@ -215,5 +222,8 @@
         }
       }
     }
+  },
+  "cli": {
+    "analytics": false
   }
 }

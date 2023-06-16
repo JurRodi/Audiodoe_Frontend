@@ -1,0 +1,55 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+}
+
+h1 {
+  font-size: var(--header-1);
+  font-family: var(--font-family--header-1);
+  margin: 10px 0 30px 0;
+}
+
+p {
+  margin: 0;
+}
+
+.form-container {
+  width: 100%;
+  max-width: 700px;
+  margin: auto;
+  padding: 25px;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0px 0px 5px 0px rgba(49, 54, 57, 0.2);
+}
+
+.form-group {
+  margin-bottom: 30px;
+}
+
+textarea {
+  resize: none;
+}
+
+select:focus,
+textarea:focus,
+input:focus {
+  outline: none;
+  border: 1px solid var(--primary--purple);
+}
+
+button {
+  background-color: var(--primary--purple);
+  width: max-content;
+}
+
+button:hover {
+  background-color: var(--secundary--purple--dark);
+}
+
+app-loader {
+  width: 100px;
+}

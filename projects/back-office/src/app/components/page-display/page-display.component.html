@@ -1,0 +1,22 @@
+<div class="content-container">
+  <div class="text-container" [ngClass]="page.backgroundColor">
+    <div class="btn-group">
+      <div class="btn btn-home"></div>
+      <div class="btn btn-mute"></div>
+    </div>
+    <p>{{ page.text }}</p>
+    <div class="btn-group">
+      <div
+        *ngIf="!page.choiceSplit && page.pageNumber !== 1"
+        class="btn btn-previous"
+      ></div>
+      <div class="btn btn-next"></div>
+    </div>
+  </div>
+  <div class="image-container">
+    <img [src]="page.backgroundImage" alt="page image" />
+    <div *ngIf="page.animations" [ngClass]="page.animations[0].position">
+      <img [src]="page.animations[0].filename" alt="" />
+    </div>
+  </div>
+</div>

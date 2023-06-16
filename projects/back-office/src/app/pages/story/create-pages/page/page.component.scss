@@ -1,0 +1,55 @@
+@use '../../../../../assets/styles/partials/page-icons.scss';
+
+.screen-container {
+  width: 95%;
+  height: 90%;
+  max-width: 900px;
+  max-height: 400px;
+
+  .interaction-controls {
+    height: 30px;
+    width: 70px;
+    max-height: 5%;
+    display: flex;
+    justify-content: space-between;
+    margin: auto;
+    margin-top: 3px;
+
+    .btn {
+      height: 100%;
+      max-height: 32px;
+      filter: brightness(0) saturate(100%) invert(83%) sepia(9%) saturate(119%)
+        hue-rotate(194deg) brightness(90%) contrast(94%);
+      cursor: pointer;
+      margin: 0;
+      background-size: contain;
+    }
+  }
+}
+
+img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.btn-container {
+  display: flex;
+  align-items: center;
+
+  input[type='file'] {
+    border: none;
+    padding: 0;
+  }
+
+  button {
+    margin-top: 0.5rem;
+    width: max-content;
+    font-size: var(--font-size--header-3);
+  }
+}
+
+app-page-choice,
+app-page-interaction {
+  height: 100%;
+}

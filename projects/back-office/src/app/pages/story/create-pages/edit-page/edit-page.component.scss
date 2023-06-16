@@ -1,0 +1,63 @@
+.toolbar {
+  display: flex;
+  justify-content: space-around;
+  height: 100%;
+
+  .row {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 40%;
+
+    > div {
+      height: 100%;
+
+      .form-group-container {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        height: 100%;
+      }
+    }
+  }
+
+  label {
+    font-size: 1.2rem;
+  }
+
+  input,
+  textarea,
+  button {
+    margin-top: 0.2rem;
+  }
+}
+
+textarea {
+  resize: none;
+}
+
+.form-group div {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+
+  input[type='file'] {
+    border: none;
+    padding: 0;
+  }
+
+  button {
+    width: max-content;
+    font-size: var(--font-size--header-3);
+  }
+
+  span {
+    width: 45%;
+    height: 1.3rem;
+    overflow: hidden;
+    font-family: var(--font-family--header-3);
+    font-size: 0.9rem;
+    margin-top: 0.5rem;
+  }
+}
