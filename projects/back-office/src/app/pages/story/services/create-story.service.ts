@@ -10,6 +10,7 @@ import {
 import { PageModel } from '../../../api-client/models/page/pageModel'
 import { EPageType } from '../../../api-client/models/page/pageTypes'
 import { EClickable } from '../../../api-client/models/clickable/clickableTypes'
+import { PageControllerService } from '../../../api-client/services/page/page-controller.service'
 
 @Injectable({
   providedIn: 'root',
@@ -43,7 +44,8 @@ export class CreateStoryService {
 
   constructor(
     private categoryController: CategoryControllerService,
-    private storyController: StoryControllerService
+    private storyController: StoryControllerService,
+    private pageController: PageControllerService
   ) {}
 
   public async getCategories(): Promise<void> {
@@ -58,5 +60,9 @@ export class CreateStoryService {
   public async getStory(id: string) {
     const res: any = await this.storyController.getStory(id)
     this.story$.next(res)
+  }
+
+  public createPages() {
+    return this.pageController.createPages(this.pages$.value)
   }
 }

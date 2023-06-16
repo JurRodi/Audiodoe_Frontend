@@ -104,7 +104,7 @@ export class PageComponent implements OnInit {
       if (!this.story) return
       this.page = structuredClone(this.createStoryService.initPage)
       this.page.backgroundImage = url
-      this.page.backgroundColor = 'blue'
+      this.page.backgroundColor = this.story.backGroundColor
       this.page.storyId = this.story._id
       this.page.choicePath = filename!.slice(-5, -4)
       this.page.pageNumber = +filename!.slice(-8, -5)

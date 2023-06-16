@@ -30,6 +30,6 @@ export interface PageModel {
 }
 
 export interface Animation {
-  fileName: string
+  filename: string
   position: string | null
 }

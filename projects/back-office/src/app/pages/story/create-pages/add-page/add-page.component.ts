@@ -9,6 +9,7 @@ import {
 import { EPageType } from 'projects/audiodoe-app/src/app/api-client/models/page/pageTypes'
 import { pageTypeTranslations } from 'projects/back-office/src/app/api-client/models/page/pageTypeTranslations'
 import { StoryModel } from 'projects/back-office/src/app/api-client/models/story/storyModel'
+import { Router } from '@angular/router'
 
 @Component({
   selector: 'app-add-page',
@@ -48,13 +49,17 @@ export class AddPageComponent {
   public submitted = false
   public isLoading = false
 
+  public isModalOpen = false
+  public isSuccessModalOpen = false
+
   public get f() {
     return this.pageForm.controls
   }
 
   constructor(
     private createStoryService: CreateStoryService,
-    private form: NonNullableFormBuilder
+    private form: NonNullableFormBuilder,
+    private router: Router
   ) {}
 
   public addPage() {
@@ -81,6 +86,7 @@ export class AddPageComponent {
     }
     this.page.storyId = this.story!._id
     this.page.pageNumber = this.createStoryService.activePage$.value + 1
+    this.page.choiceSplit = true
     this.createStoryService.pages$.value.splice(
       this.createStoryService.activePage$.value + 1,
       0,
@@ -116,8 +122,31 @@ export class AddPageComponent {
     })
   }
 
-  public createPages() {
-    // this.createStoryService.createPage()
-    console.warn('create pages')
+  public openModal() {
+    this.isModalOpen = true
+  }
+
+  public closeModal() {
+    this.isModalOpen = false
+  }
+
+  public openSuccessModal() {
+    this.isSuccessModalOpen = true
+  }
+
+  public navigateToStory() {
+    this.router.navigate(['/story/create'])
+  }
+
+  public async createPages() {
+    this.createStoryService
+      .createPages()
+      .pipe()
+      .subscribe({
+        next: () => {
+          this.closeModal()
+          this.openSuccessModal()
+        },
+      })
   }
 }

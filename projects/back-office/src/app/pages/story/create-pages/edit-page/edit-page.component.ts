@@ -42,7 +42,7 @@ export class EditPageComponent {
   public animationFile: File | null = null
   public hasAnimation = false
   public initAnimation: Animation = {
-    fileName: '',
+    filename: '',
     position: null,
   }
   public animation = structuredClone(this.initAnimation)
@@ -183,7 +183,7 @@ export class EditPageComponent {
   ): Promise<void> {
     await uploadBytes(fileRef, file)
     await getDownloadURL(fileRef).then((url) => {
-      this.animation.fileName = url
+      this.animation.filename = url
       this.page!.animations = [this.animation]
     })
     this.createStoryService.pages$.value[

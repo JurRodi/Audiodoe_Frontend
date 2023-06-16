@@ -22,8 +22,25 @@
     </form>
   </div>
   <div>
-    <button class="btn-upload" (click)="createPages()">
+    <button class="btn-upload" [disabled]="!pages.length" (click)="openModal()">
       Pagina's uploaden
     </button>
+  </div>
+</div>
+
+<div *ngIf="isModalOpen" class="overlay">
+  <div class="modal">
+    <h3>Heeft u alles ingevuld en nagekeken?</h3>
+    <div>
+      <button (click)="closeModal()">Nee</button>
+      <button (click)="createPages()">Ja, upload pagina's</button>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="isSuccessModalOpen" class="overlay">
+  <div class="modal">
+    <h3>De pagina's zijn succesvol geupload!</h3>
+    <button (click)="navigateToStory()">Oke</button>
   </div>
 </div>
