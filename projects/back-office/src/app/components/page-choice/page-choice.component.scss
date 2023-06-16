@@ -6,7 +6,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: var(--primary--purple);
+  background-color: var(--secundary--purple--light);
 }
 
 .screen-container {
@@ -22,8 +22,8 @@
   }
 
   .btn {
-    filter: brightness(0) saturate(100%) invert(75%) sepia(30%) saturate(765%)
-      hue-rotate(178deg) brightness(96%) contrast(106%);
+    filter: brightness(0) saturate(100%) invert(55%) sepia(63%) saturate(793%)
+      hue-rotate(215deg) brightness(94%) contrast(97%);
   }
 }
 
@@ -51,7 +51,7 @@
       max-width: 200px;
       max-height: 200px;
       border-radius: 20px;
-      background-color: var(--secondary--purple--light);
+      background-color: var(--tertiary--purple);
 
       img {
         width: 100%;
