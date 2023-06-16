@@ -9,6 +9,7 @@ import {
 } from '../../../api-client/models/story/storyModel'
 import { PageModel } from '../../../api-client/models/page/pageModel'
 import { EPageType } from '../../../api-client/models/page/pageTypes'
+import { EClickable } from '../../../api-client/models/clickable/clickableTypes'
 
 @Injectable({
   providedIn: 'root',
@@ -30,12 +31,15 @@ export class CreateStoryService {
     choiceImage2: null,
     choiceSplit: false,
     instructionsTitle: null,
+    interaction: null,
   }
 
   public readonly categories$ = new BehaviorSubject<CategoryModel[]>([])
   public readonly pages$ = new BehaviorSubject<PageModel[]>([])
   public readonly story$ = new BehaviorSubject<StoryModel | null>(null)
   public readonly activePage$ = new BehaviorSubject<number>(0)
+  public readonly clickableAmount$ = new BehaviorSubject<number>(0)
+  public readonly clickableShape$ = new BehaviorSubject<EClickable | null>(null)
 
   constructor(
     private categoryController: CategoryControllerService,

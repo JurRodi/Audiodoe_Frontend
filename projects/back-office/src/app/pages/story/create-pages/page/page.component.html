@@ -1,4 +1,4 @@
-<div *ngIf="!isZipUploaded">
+<div *ngIf="!isZipUploaded" class="screen-container">
   <form [formGroup]="zipForm" (ngSubmit)="submitZipForm()">
     <div class="form-group">
       <label for="images">Afbeeldingen:</label>
@@ -37,7 +37,10 @@
   </form>
 </div>
 
-<div *ngIf="!isLoading && isZipUploaded && pages.length !== 0">
+<div
+  *ngIf="!isLoading && isZipUploaded && pages.length"
+  class="screen-container"
+>
   <app-page-display
     *ngIf="
       pages[createStoryService.activePage$.value].pageType === pageTypes.Display
@@ -50,4 +53,18 @@
     "
     [page]="pages[createStoryService.activePage$.value]"
   ></app-page-choice>
+  <ng-template
+    [ngIf]="
+      pages[createStoryService.activePage$.value].pageType ===
+      pageTypes.Interaction
+    "
+  >
+    <app-page-interaction
+      [page]="pages[createStoryService.activePage$.value]"
+    ></app-page-interaction>
+    <div class="interaction-controls">
+      <div class="btn btn-previous" (click)="goToOverview()"></div>
+      <div class="btn btn-next" (click)="goToGame()"></div>
+    </div>
+  </ng-template>
 </div>

@@ -15,6 +15,12 @@ import {
   PageModel,
   Animation,
 } from 'projects/back-office/src/app/api-client/models/page/pageModel'
+import { InteractionModel } from 'projects/back-office/src/app/api-client/models/interaction/interactionModel'
+import { EInteractionType } from 'projects/back-office/src/app/api-client/models/interaction/interactionTypes'
+import { interactionTypeTranslations } from 'projects/back-office/src/app/api-client/models/interaction/interactionTypeTranslation'
+import { ClickableModel } from 'projects/back-office/src/app/api-client/models/clickable/clickableModel'
+import { EClickable } from 'projects/back-office/src/app/api-client/models/clickable/clickableTypes'
+import { clickableTypeTranslations } from 'projects/back-office/src/app/api-client/models/clickable/clickableTypeTranslations'
 
 @Component({
   selector: 'app-edit-page',
@@ -26,7 +32,9 @@ export class EditPageComponent {
 
   public pages = this.createStoryService.pages$.value
   public page: PageModel | null = null
+
   public text = new FormControl('')
+  public title = new FormControl('')
 
   public audioFile: File | null = null
   public hasAudio = false
@@ -45,6 +53,38 @@ export class EditPageComponent {
   public choice1File: File | null = null
   public choice2File: File | null = null
 
+  public backgroundColor = new FormControl('')
+
+  public initClickable: ClickableModel = {
+    filename: '',
+    amount: 0,
+    shape: '',
+  }
+  public clickable = structuredClone(this.initClickable)
+
+  public eInteractionType = EInteractionType
+  public interactionTypes: EInteractionType[] = [EInteractionType.Colorize]
+  public interactionTypeTranslations = interactionTypeTranslations
+  public initInteraction: InteractionModel = {
+    type: EInteractionType.None,
+    backgroundImage: '',
+    backgroundColor: '',
+    clickable: this.initClickable,
+  }
+  public interaction = structuredClone(this.initInteraction)
+  public interactionType = new FormControl('')
+
+  public hasBgImage = false
+  public bgImageFile: File | null = null
+
+  public hasClickable = false
+  public clickableFile: File | null = null
+  public clickableAmount = new FormControl(0)
+  public clickableShape = new FormControl('')
+  public eclickableShapes = EClickable
+  public clickableShapes: EClickable[] = [EClickable.Circle]
+  public clickableShapeTranslations = clickableTypeTranslations
+
   private app = initializeApp(environment.firebaseConfig)
   private storage = getStorage(this.app)
 
@@ -54,6 +94,17 @@ export class EditPageComponent {
     this.createStoryService.activePage$.subscribe((activePage) => {
       this.page = this.createStoryService.pages$.value[activePage]
       this.text.setValue(this.page?.text)
+      this.title.setValue(this.page?.instructionsTitle)
+      this.backgroundColor.setValue(this.page?.backgroundColor)
+      this.interactionType.setValue(
+        this.page?.interaction?.type.toString() || 'None'
+      )
+      this.clickableAmount.setValue(
+        this.page?.interaction?.clickable?.amount || 0
+      )
+      this.clickableShape.setValue(
+        this.page?.interaction?.clickable?.shape || ''
+      )
       this.page?.audio ? (this.hasAudio = true) : (this.hasAudio = false)
       if (this.page?.animations?.length) {
         this.hasAnimation = true
@@ -67,12 +118,15 @@ export class EditPageComponent {
     })
   }
 
-  public onTextChange(): void {
+  public onTextChange(isTitle: boolean): void {
     if (!this.page) return
     if (this.page.pageType === 'Choice') {
       this.page.choiceQuestion = this.text.value!
     } else {
       this.page.text = this.text.value!
+    }
+    if (isTitle) {
+      this.page.instructionsTitle = this.title.value!
     }
     this.createStoryService.pages$.value[
       this.createStoryService.activePage$.value
@@ -148,7 +202,6 @@ export class EditPageComponent {
     this.createStoryService.pages$.value[
       this.createStoryService.activePage$.value
     ] = this.page!
-    console.log(this.createStoryService.pages$.value)
   }
 
   public onImageSelected(event: any, isChoice1: boolean): void {
@@ -194,5 +247,121 @@ export class EditPageComponent {
 
   public resetImageUpload(isChoice1: boolean): void {
     isChoice1 ? (this.hasChoice1 = false) : (this.hasChoice2 = false)
+  }
+
+  public onIteractionColorChange(): void {
+    if (!this.page || !this.backgroundColor) return
+    if (this.backgroundColor.value!.match(/^#[0-9A-F]{6}$/i)) {
+      this.page.backgroundColor = this.backgroundColor.value!
+    } else {
+      this.page.backgroundColor = '#d0d0d0'
+    }
+    this.createStoryService.pages$.value[
+      this.createStoryService.activePage$.value
+    ] = this.page!
+  }
+
+  public onBackgroundColorChange(): void {
+    if (!this.page || !this.backgroundColor) return
+    this.page.backgroundColor = this.backgroundColor.value!
+    this.createStoryService.pages$.value[
+      this.createStoryService.activePage$.value
+    ] = this.page!
+  }
+
+  public selectedInteractionType(event: any): void {
+    if (!this.page) return
+    this.interaction.type = event.target.value
+    this.page.interaction = this.interaction
+  }
+
+  public onClickableSelected(event: any): void {
+    this.clickableFile = event.target.files[0]
+  }
+
+  public onClickableUpload(): void {
+    if (!this.clickableFile || !this.story || !this.page) return
+    this.page.clickableFileName = this.clickableFile.name
+    const filePath =
+      this.story.title + '/animations/clickables/' + this.page.clickableFileName
+    const fileRef = ref(this.storage, filePath)
+    this.uploadClickable(fileRef, this.clickableFile)
+  }
+
+  public async uploadClickable(
+    fileRef: StorageReference,
+    file: File
+  ): Promise<void> {
+    await uploadBytes(fileRef, file)
+    await getDownloadURL(fileRef).then((url) => {
+      this.clickable.filename = url
+      this.page!.interaction!.clickable = this.clickable
+    })
+    if (this.clickableAmount.value === 0) {
+      this.clickableAmount.setValue(1)
+      this.createStoryService.clickableAmount$.next(1)
+    }
+    this.createStoryService.pages$.value[
+      this.createStoryService.activePage$.value
+    ] = this.page!
+    this.hasClickable = true
+  }
+
+  public resetClickableUpload(): void {
+    this.hasClickable = false
+  }
+
+  public onBgImageSelected(event: any): void {
+    this.bgImageFile = event.target.files[0]
+  }
+
+  public onBgImageUpload(): void {
+    if (!this.bgImageFile || !this.story || !this.page) return
+    this.page.bgImageFileName = this.bgImageFile.name
+    const filePath =
+      this.story.title + '/backgroundImages/' + this.page.bgImageFileName
+    const fileRef = ref(this.storage, filePath)
+    this.uploadBgImage(fileRef, this.bgImageFile)
+  }
+
+  public async uploadBgImage(
+    fileRef: StorageReference,
+    file: File
+  ): Promise<void> {
+    await uploadBytes(fileRef, file)
+    await getDownloadURL(fileRef).then((url) => {
+      this.interaction.backgroundImage = url
+      this.page!.interaction = this.interaction
+    })
+    this.createStoryService.pages$.value[
+      this.createStoryService.activePage$.value
+    ] = this.page!
+    this.hasBgImage = true
+  }
+
+  public resetBgImageUpload(): void {
+    this.hasBgImage = false
+  }
+
+  public onClickableAmountChange(): void {
+    if (!this.page || !this.clickableAmount) return
+    if (this.clickableAmount.value! > 9) {
+      this.clickableAmount.setValue(9)
+      return
+    }
+    this.page.interaction!.clickable.amount = this.clickableAmount.value!
+    this.createStoryService.clickableAmount$.next(this.clickableAmount.value!)
+    this.createStoryService.pages$.value[
+      this.createStoryService.activePage$.value
+    ] = this.page!
+  }
+
+  public selectedClickableShape(event: any): void {
+    if (!this.page || !this.clickable) return
+    this.page.interaction!.clickable.shape = event.target.value
+    this.createStoryService.clickableShape$.next(event.target.value)
+    this.createStoryService.pages$.value[
+      this.createStoryService.activePage$.value
+    ] = this.page!
   }
 }

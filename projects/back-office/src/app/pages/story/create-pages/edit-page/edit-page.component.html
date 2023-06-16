@@ -1,106 +1,246 @@
 <div class="toolbar">
   <div class="row">
-    <div class="form-group">
-      <label for="audio">Audio:</label>
-      <div *ngIf="!hasAudio">
-        <input type="file" accept=".mp3" (change)="onAudioSelected($event)" />
-        <button [disabled]="pages.length === 0" (click)="onAudioUpload()">
-          Upload
-        </button>
-      </div>
-      <div *ngIf="hasAudio">
-        <span>{{ page!.audioFileName }}</span>
-        <button (click)="resetAudioUpload()">Opniew kiezen</button>
-      </div>
-    </div>
-    <div class="form-group">
-      <label for="text-input">Tekst:</label>
-      <textarea
-        rows="4"
-        cols="50"
-        [formControl]="text"
-        (keyup)="onTextChange()"
-      ></textarea>
-    </div>
-  </div>
-  <div class="row">
-    <ng-template
-      [ngIf]="page && page.pageType === 'Choice'"
-      [ngIfElse]="display"
-    >
+    <ng-template [ngIf]="!page?.startInteraction" [ngIfElse]="game">
       <div class="form-group">
-        <label for="">Keuze 1:</label>
-        <div>
-          <div *ngIf="!hasChoice1">
-            <input
-              type="file"
-              accept="images/*"
-              (change)="onImageSelected($event, true)"
-            />
-            <button [disabled]="!pages.length" (click)="onImageUpload(true)">
-              Upload
-            </button>
-          </div>
-          <div *ngIf="hasChoice1">
-            <span>{{ page!.animationFileName }}</span>
-            <button (click)="resetImageUpload(true)">Opniew kiezen</button>
-          </div>
+        <label for="audio">Audio:</label>
+        <div *ngIf="!hasAudio">
+          <input type="file" accept=".mp3" (change)="onAudioSelected($event)" />
+          <button [disabled]="!pages.length" (click)="onAudioUpload()">
+            Upload
+          </button>
+        </div>
+        <div *ngIf="hasAudio">
+          <span>{{ page!.audioFileName }}</span>
+          <button (click)="resetAudioUpload()">Opniew kiezen</button>
         </div>
       </div>
       <div class="form-group">
-        <label for="">Keuze 1:</label>
-        <div>
-          <div *ngIf="!hasChoice2">
-            <input
-              type="file"
-              accept="images/*"
-              (change)="onImageSelected($event, false)"
-            />
-            <button [disabled]="!pages.length" (click)="onImageUpload(false)">
-              Upload
-            </button>
-          </div>
-          <div *ngIf="hasChoice2">
-            <span>{{ page!.animationFileName }}</span>
-            <button (click)="resetImageUpload(false)">Opniew kiezen</button>
-          </div>
-        </div>
+        <label for="text-input">Tekst:</label>
+        <textarea
+          rows="4"
+          cols="50"
+          [formControl]="text"
+          (keyup)="onTextChange(false)"
+        ></textarea>
       </div>
     </ng-template>
 
-    <ng-template #display>
+    <ng-template #game>
       <div class="form-group">
-        <label for="animation-upload">Animatie:</label>
-        <div>
-          <div *ngIf="!hasAnimation">
-            <input
-              type="file"
-              accept=".gif"
-              (change)="onAnimationSelected($event)"
-            />
-            <button [disabled]="!pages.length" (click)="onAnimationUpload()">
-              Upload
-            </button>
+        <label for="animation-position">Type interactie:</label>
+        <select
+          [formControl]="interactionType"
+          (change)="selectedInteractionType($event)"
+        >
+          <option *ngFor="let type of interactionTypes" [value]="type">
+            {{ interactionTypeTranslations[type] }}
+          </option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="audio">Achtergrond afbeelding:</label>
+        <div *ngIf="!hasBgImage">
+          <input
+            type="file"
+            accept=".png,.jpg,.jpeg"
+            (change)="onBgImageSelected($event)"
+          />
+          <button [disabled]="!pages.length" (click)="onBgImageUpload()">
+            Upload
+          </button>
+        </div>
+        <div *ngIf="hasBgImage">
+          <span>{{ page!.bgImageFileName }}</span>
+          <button (click)="resetBgImageUpload()">Opniew kiezen</button>
+        </div>
+      </div>
+    </ng-template>
+  </div>
+
+  <div class="row">
+    <div *ngIf="page" [ngSwitch]="page.pageType">
+      <div *ngSwitchCase="'Choice'" class="form-group-container">
+        <div class="form-group">
+          <label for="">Keuze 1:</label>
+          <div>
+            <div *ngIf="!hasChoice1">
+              <input
+                type="file"
+                accept="images/*"
+                (change)="onImageSelected($event, true)"
+              />
+              <button [disabled]="!pages.length" (click)="onImageUpload(true)">
+                Upload
+              </button>
+            </div>
+            <div *ngIf="hasChoice1">
+              <span>{{ page!.choiceImage1FileName }}</span>
+              <button (click)="resetImageUpload(true)">Opniew kiezen</button>
+            </div>
           </div>
-          <div *ngIf="hasAnimation">
-            <span>{{ page!.animationFileName }}</span>
-            <button (click)="resetAnimationUpload()">Opniew kiezen</button>
+        </div>
+        <div class="form-group">
+          <label for="">Keuze 1:</label>
+          <div>
+            <div *ngIf="!hasChoice2">
+              <input
+                type="file"
+                accept="images/*"
+                (change)="onImageSelected($event, false)"
+              />
+              <button [disabled]="!pages.length" (click)="onImageUpload(false)">
+                Upload
+              </button>
+            </div>
+            <div *ngIf="hasChoice2">
+              <span>{{ page!.choiceImage2FileName }}</span>
+              <button (click)="resetImageUpload(false)">Opniew kiezen</button>
+            </div>
           </div>
         </div>
       </div>
-      <div class="form-group">
-        <label for="animation-position">Positie animatie:</label>
-        <select
-          [formControl]="animationPosition"
-          (change)="selectedPosition($event)"
+
+      <div *ngSwitchCase="'Interaction'" class="form-group-container">
+        <ng-template [ngIf]="!page.startInteraction">
+          <div class="form-group">
+            <label for="animation-upload">Animatie:</label>
+            <div>
+              <div *ngIf="!hasAnimation">
+                <input
+                  type="file"
+                  accept=".gif"
+                  (change)="onAnimationSelected($event)"
+                />
+                <button
+                  [disabled]="!pages.length"
+                  (click)="onAnimationUpload()"
+                >
+                  Upload
+                </button>
+              </div>
+              <div *ngIf="hasAnimation">
+                <span>{{ page!.animationFileName }}</span>
+                <button (click)="resetAnimationUpload()">Opniew kiezen</button>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="titlet">Achtergrondkleur(hex):</label>
+            <input
+              type="text"
+              [formControl]="backgroundColor"
+              (keyup)="onIteractionColorChange()"
+            />
+          </div>
+          <div class="form-group">
+            <label for="titlet">Titel:</label>
+            <input
+              type="text"
+              [formControl]="title"
+              (keyup)="onTextChange(true)"
+            />
+          </div>
+        </ng-template>
+
+        <ng-template
+          [ngIf]="
+            page.startInteraction && page.interaction?.type === 'Colorize'
+          "
         >
-          <option value="top-left">Links boven</option>
-          <option value="top-right">Rechts boven</option>
-          <option value="bottom-left">Links onder</option>
-          <option value="bottom-right">Rechts onder</option>
-          <option value="center">Midden</option>
-        </select>
+          <div class="form-group">
+            <label for="animation-upload">In te kleuren element:</label>
+            <div>
+              <div *ngIf="!hasClickable">
+                <input
+                  type="file"
+                  accept=".png"
+                  (change)="onClickableSelected($event)"
+                />
+                <button
+                  [disabled]="!pages.length"
+                  (click)="onClickableUpload()"
+                >
+                  Upload
+                </button>
+              </div>
+              <div *ngIf="hasClickable">
+                <span>{{ page!.clickableFileName }}</span>
+                <button (click)="resetClickableUpload()">Opniew kiezen</button>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="clickableAmount">Aantal elementen:</label>
+            <input
+              type="number"
+              max="9"
+              min="0"
+              [formControl]="clickableAmount"
+              (keyup)="onClickableAmountChange()"
+            />
+          </div>
+          <div class="form-group">
+            <label for="clickableShape">Vorm elementen:</label>
+            <select
+              [formControl]="clickableShape"
+              (change)="selectedClickableShape($event)"
+            >
+              <option *ngFor="let shape of clickableShapes" [value]="shape">
+                {{ clickableShapeTranslations[shape] }}
+              </option>
+            </select>
+          </div>
+        </ng-template>
       </div>
-    </ng-template>
+
+      <div *ngSwitchDefault class="form-group-container">
+        <div class="form-group">
+          <label for="animation-upload">Animatie:</label>
+          <div>
+            <div *ngIf="!hasAnimation">
+              <input
+                type="file"
+                accept=".gif"
+                (change)="onAnimationSelected($event)"
+              />
+              <button [disabled]="!pages.length" (click)="onAnimationUpload()">
+                Upload
+              </button>
+            </div>
+            <div *ngIf="hasAnimation">
+              <span>{{ page!.animationFileName }}</span>
+              <button (click)="resetAnimationUpload()">Opniew kiezen</button>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="backGroundColor">Achtergrondkleur:</label>
+          <select
+            [formControl]="backgroundColor"
+            (change)="onBackgroundColorChange()"
+          >
+            <option value="red">Rood</option>
+            <option value="blue">Blauw</option>
+            <option value="green">Groen</option>
+            <option value="yellow">Geel</option>
+            <option value="orange">Oranje</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="animation-position">Positie animatie:</label>
+          <select
+            [formControl]="animationPosition"
+            (change)="selectedPosition($event)"
+          >
+            <option value="top-left">Links boven</option>
+            <option value="top-right">Rechts boven</option>
+            <option value="bottom-left">Links onder</option>
+            <option value="bottom-right">Rechts onder</option>
+            <option value="center">Midden</option>
+            <option value="bottom">Midden onder</option>
+          </select>
+        </div>
+      </div>
+    </div>
   </div>
 </div>

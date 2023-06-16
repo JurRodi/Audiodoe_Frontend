@@ -12,5 +12,11 @@
       [ngClass]="{ active: i === createStoryService.activePage$.value }"
       (click)="setActiveImage(i)"
     ></app-page-choice>
+    <app-page-interaction
+      *ngIf="page.pageType === pageType.Interaction"
+      [page]="pages[i]"
+      [ngClass]="{ active: i === createStoryService.activePage$.value }"
+      (click)="setActiveImage(i)"
+    ></app-page-interaction>
   </div>
 </div>

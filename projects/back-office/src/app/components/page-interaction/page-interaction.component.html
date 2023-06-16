@@ -1,0 +1,28 @@
+<div *ngIf="!page.startInteraction" class="content-container">
+  <div
+    class="image-container"
+    [ngStyle]="{ 'background-color': page.backgroundColor }"
+  >
+    <div class="btn-group">
+      <div class="btn btn-home"></div>
+      <div class="btn btn-mute"></div>
+    </div>
+    <img *ngIf="page.animations" [src]="page.animations[0].fileName" alt="" />
+  </div>
+  <div class="text-container">
+    <div class="text-wrapper">
+      <h3>{{ page.instructionsTitle }}</h3>
+      <p>{{ page.text }}</p>
+    </div>
+    <div class="btn-interaction">Start</div>
+  </div>
+  <img src="assets/images/pim.png" alt="" class="charachter" />
+</div>
+<div *ngIf="page.startInteraction" class="content-container">
+  <div class="btn-interaction next">Verder</div>
+  <ng-template [ngIf]="page.interaction">
+    <app-interaction-colorize
+      *ngIf="page.interaction.type === interactionTypes.Colorize"
+    ></app-interaction-colorize>
+  </ng-template>
+</div>

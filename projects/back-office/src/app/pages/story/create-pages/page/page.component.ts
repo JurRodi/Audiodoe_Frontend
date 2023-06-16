@@ -139,4 +139,16 @@ export class PageComponent implements OnInit {
     this.error = ''
     this.isZipUploaded = true
   }
+
+  public goToGame(): void {
+    this.createStoryService.pages$.value[
+      this.createStoryService.activePage$.value
+    ].startInteraction = true
+  }
+
+  public goToOverview(): void {
+    this.createStoryService.pages$.value[
+      this.createStoryService.activePage$.value
+    ].startInteraction = false
+  }
 }

@@ -1,3 +1,4 @@
+import { InteractionModel } from '../interaction/interactionModel'
 import { EPageType } from './pageTypes'
 
 export interface PageModel {
@@ -16,12 +17,16 @@ export interface PageModel {
   text: string
   pageType: EPageType
   storyId: string
+  interaction: InteractionModel | null
 
   audioFileName?: string
   animationFileName?: string
   hasPageNumberChanged?: boolean
   choiceImage1FileName?: string
   choiceImage2FileName?: string
+  startInteraction?: boolean
+  bgImageFileName?: string
+  clickableFileName?: string
 }
 
 export interface Animation {
