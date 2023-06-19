@@ -1,6 +1,6 @@
 nav {
   width: 100%;
-  height: 65px;
+  height: 75px;
   position: fixed;
   bottom: 0;
   background-color: var(--tertiary--green);
@@ -10,19 +10,28 @@ nav {
   z-index: 1;
 
   div {
-    width: 32px;
-    height: 32px;
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center;
+    div {
+      width: 100%;
+      height: 32px;
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+      margin-bottom: 5px;
+    }
+
+    span {
+      color: var(--primary--green);
+      font-size: 0.88rem;
+      font-family: var(--font-family--header-1);
+    }
   }
 
   .stories {
     background-image: url('../../../assets/icons/book.png');
   }
 
-  .wallet {
-    background-image: url('../../../assets/icons/wallet.png');
+  .wardrobe {
+    background-image: url('../../../assets/icons/wardrobe.png');
   }
 
   .profile {
@@ -30,6 +39,6 @@ nav {
   }
 
   .active {
-    background-color: var(--secundary--green--dark);
+    color: var(--secundary--green--dark) !important;
   }
 }
