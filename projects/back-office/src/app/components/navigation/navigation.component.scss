@@ -1,0 +1,25 @@
+nav {
+  width: calc(100% - 2rem);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  background-color: white;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+
+  .nav-group {
+    display: flex;
+    align-items: center;
+
+    .nav-item {
+      font-family: var(--font-family--header-2);
+      font-size: var(--header-3);
+      margin-right: 1rem;
+      cursor: pointer;
+    }
+
+    .home {
+      margin-left: 1rem;
+    }
+  }
+}
