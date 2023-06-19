@@ -40,3 +40,9 @@ testem.log
 # System files
 .DS_Store
 Thumbs.db
+
+# Env files
+/projects/back-office/src/environments/environment.ts
+/projects/back-office/src/environments/environment.development.ts
+/projects/audiodoe-app/src/environments/environment.ts
+/projects/audiodoe-app/src/environments/environment.development.ts
