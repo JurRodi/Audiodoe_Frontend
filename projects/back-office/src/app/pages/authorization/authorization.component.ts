@@ -42,7 +42,7 @@ export class AuthorizationComponent {
       .pipe(first())
       .subscribe({
         next: () => {
-          this.router.navigate(['/story/create'])
+          this.router.navigate(['/story'])
         },
         error: () => {
           this.error = 'Email of wachtwoord is onjuist'

@@ -9,8 +9,10 @@ import { EditPageComponent } from './create-pages/edit-page/edit-page.component'
 import { AddPageComponent } from './create-pages/add-page/add-page.component'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { ComponentsModule } from '../../components/components.module'
+import { OverviewComponent } from './overview/overview.component'
 
 const routes: Routes = [
+  { path: '', component: OverviewComponent },
   { path: 'create', component: CreateComponent },
   { path: 'create-pages/:storyId', component: CreatePagesComponent },
   { path: '**', redirectTo: '/', pathMatch: 'full' },
@@ -24,6 +26,7 @@ const routes: Routes = [
     PageComponent,
     EditPageComponent,
     AddPageComponent,
+    OverviewComponent,
   ],
   imports: [
     CommonModule,

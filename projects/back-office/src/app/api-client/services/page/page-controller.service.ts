@@ -14,4 +14,12 @@ export class PageControllerService {
   public createPages(pages: PageModel[]) {
     return this.http.post(environment.apiBaseUrl + RESOURCE + '/create', pages)
   }
+
+  public getPages() {
+    return this.http.get(environment.apiBaseUrl + RESOURCE)
+  }
+
+  public updatePages(pages: PageModel[]) {
+    return this.http.put(environment.apiBaseUrl + RESOURCE + '/update', pages)
+  }
 }
