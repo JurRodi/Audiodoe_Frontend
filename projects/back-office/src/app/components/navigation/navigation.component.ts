@@ -10,7 +10,7 @@ export class NavigationComponent {
   constructor(private router: Router) {}
 
   public navigateToStories(): void {
-    this.router.navigate(['/stories'])
+    this.router.navigate(['/story'])
   }
 
   public navigateToCreateStory(): void {

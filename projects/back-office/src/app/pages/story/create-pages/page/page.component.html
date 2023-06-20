@@ -1,4 +1,4 @@
-<div *ngIf="!isZipUploaded" class="screen-container">
+<div *ngIf="!hasPages" class="screen-container">
   <form [formGroup]="zipForm" (ngSubmit)="submitZipForm()">
     <div class="form-group">
       <label for="images">Afbeeldingen:</label>
@@ -37,10 +37,7 @@
   </form>
 </div>
 
-<div
-  *ngIf="!isLoading && isZipUploaded && pages.length"
-  class="screen-container"
->
+<div *ngIf="!isLoading && hasPages && pages.length" class="screen-container">
   <app-page-display
     *ngIf="
       pages[createStoryService.activePage$.value].pageType === pageTypes.Display

@@ -35,7 +35,7 @@ export class PageComponent implements OnInit {
   public submitted = false
   public isLoading = false
   public error = ''
-  public isZipUploaded = false
+  public hasPages = false
 
   public zip: File | null = null
 
@@ -56,6 +56,10 @@ export class PageComponent implements OnInit {
   async ngOnInit(): Promise<void> {
     this.createStoryService.pages$.subscribe((pages) => {
       this.pages = pages
+      this.pages.length ? (this.hasPages = true) : (this.hasPages = false)
+      console.log(this.hasPages)
+      console.log(this.pages.length)
+      console.log(this.pages)
     })
   }
 
@@ -137,7 +141,7 @@ export class PageComponent implements OnInit {
     await this.extractZip(this.zip)
     this.isLoading = false
     this.error = ''
-    this.isZipUploaded = true
+    this.hasPages = true
   }
 
   public goToGame(): void {

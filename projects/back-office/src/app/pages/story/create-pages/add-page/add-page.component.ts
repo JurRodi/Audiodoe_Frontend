@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core'
+import { Component, Input, OnInit } from '@angular/core'
 import { CreateStoryService } from '../../services/create-story.service'
 import {
   AbstractControl,
@@ -16,7 +16,7 @@ import { Router } from '@angular/router'
   templateUrl: './add-page.component.html',
   styleUrls: ['./add-page.component.scss'],
 })
-export class AddPageComponent {
+export class AddPageComponent implements OnInit {
   @Input() public story?: StoryModel
 
   public pageForm = this.form.group(
@@ -61,6 +61,12 @@ export class AddPageComponent {
     private form: NonNullableFormBuilder,
     private router: Router
   ) {}
+
+  ngOnInit(): void {
+    this.createStoryService.pages$.subscribe((pages) => {
+      this.pages = pages
+    })
+  }
 
   public addPage() {
     this.submitted = true
@@ -135,7 +141,7 @@ export class AddPageComponent {
   }
 
   public navigateToStory() {
-    this.router.navigate(['/story/create'])
+    this.router.navigate(['/story'])
   }
 
   public async createPages() {

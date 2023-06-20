@@ -30,8 +30,9 @@ import { clickableTypeTranslations } from 'projects/back-office/src/app/api-clie
 export class EditPageComponent {
   @Input() public story?: StoryModel
 
-  public pages = this.createStoryService.pages$.value
+  public pages: PageModel[] = []
   public page: PageModel | null = null
+  public activePage = 0
 
   public text = new FormControl('')
   public title = new FormControl('')
@@ -92,30 +93,37 @@ export class EditPageComponent {
 
   ngOnInit(): void {
     this.createStoryService.activePage$.subscribe((activePage) => {
-      this.page = this.createStoryService.pages$.value[activePage]
-      this.text.setValue(this.page?.text)
-      this.title.setValue(this.page?.instructionsTitle)
-      this.backgroundColor.setValue(this.page?.backgroundColor)
-      this.interactionType.setValue(
-        this.page?.interaction?.type.toString() || 'None'
-      )
-      this.clickableAmount.setValue(
-        this.page?.interaction?.clickable?.amount || 0
-      )
-      this.clickableShape.setValue(
-        this.page?.interaction?.clickable?.shape || ''
-      )
-      this.page?.audio ? (this.hasAudio = true) : (this.hasAudio = false)
-      if (this.page?.animations?.length) {
-        this.hasAnimation = true
-        this.animation = this.page.animations[0]
-        this.animationPosition.setValue(this.animation.position)
-      } else {
-        this.hasAnimation = false
-        this.animation = structuredClone(this.initAnimation)
-        this.animationPosition.setValue('')
-      }
+      this.page = this.pages[activePage]
+      this.loadPageData()
     })
+    this.createStoryService.pages$.subscribe((pages) => {
+      this.pages = pages
+      this.page = pages[this.activePage]
+      this.loadPageData()
+    })
+  }
+
+  public loadPageData(): void {
+    this.text.setValue(this.page?.text || null)
+    this.title.setValue(this.page?.instructionsTitle || null)
+    this.backgroundColor.setValue(this.page?.backgroundColor || null)
+    this.interactionType.setValue(
+      this.page?.interaction?.type.toString() || 'None'
+    )
+    this.clickableAmount.setValue(
+      this.page?.interaction?.clickable?.amount || 0
+    )
+    this.clickableShape.setValue(this.page?.interaction?.clickable?.shape || '')
+    this.page?.audio ? (this.hasAudio = true) : (this.hasAudio = false)
+    if (this.page?.animations?.length) {
+      this.hasAnimation = true
+      this.animation = this.page.animations[0]
+      this.animationPosition.setValue(this.animation.position)
+    } else {
+      this.hasAnimation = false
+      this.animation = structuredClone(this.initAnimation)
+      this.animationPosition.setValue('')
+    }
   }
 
   public onTextChange(isTitle: boolean): void {

@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http'
 import { Injectable } from '@angular/core'
 import { StoryCreateModel } from '../../models/story/storyModel'
 import { environment } from 'projects/back-office/src/environments/environment'
-import { lastValueFrom, map } from 'rxjs'
+import { lastValueFrom } from 'rxjs'
 import { StoryFilterModel } from '../../models/story/storyFilterModel'
 
 const RESOURCE = '/story'
