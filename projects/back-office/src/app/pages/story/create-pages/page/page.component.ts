@@ -57,9 +57,6 @@ export class PageComponent implements OnInit {
     this.createStoryService.pages$.subscribe((pages) => {
       this.pages = pages
       this.pages.length ? (this.hasPages = true) : (this.hasPages = false)
-      console.log(this.hasPages)
-      console.log(this.pages.length)
-      console.log(this.pages)
     })
   }
 

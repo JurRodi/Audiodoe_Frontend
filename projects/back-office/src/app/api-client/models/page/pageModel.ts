@@ -19,14 +19,15 @@ export interface PageModel {
   storyId: string
   interaction: InteractionModel | null
 
-  audioFileName?: string
-  animationFileName?: string
-  hasPageNumberChanged?: boolean
-  choiceImage1FileName?: string
-  choiceImage2FileName?: string
-  startInteraction?: boolean
-  bgImageFileName?: string
-  clickableFileName?: string
+  audioFileName: string | null
+  animationFileName: string | null
+  hasPageNumberChanged: boolean
+  choiceImage1FileName: string | null
+  choiceImage2FileName: string | null
+  startInteraction: boolean | null
+  bgImageFileName: string | null
+  bgAnimationImageFileName: string | null
+  clickableFileName: string | null
 }
 
 export interface Animation {

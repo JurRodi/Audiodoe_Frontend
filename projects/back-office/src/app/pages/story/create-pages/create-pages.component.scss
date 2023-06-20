@@ -37,7 +37,7 @@
 
   app-page {
     width: 100%;
-    height: calc(70% - 3rem);
+    height: calc(60% - 3rem);
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -47,9 +47,9 @@
   }
 
   app-edit-page {
-    height: 30%;
+    height: 40%;
     width: calc(100% - 3rem);
-    padding: 1.5rem;
+    padding: 1rem 1.5rem;
     background-color: #f8f8f8;
     border: 1px solid rgba(49, 54, 57, 0.3);
     position: absolute;

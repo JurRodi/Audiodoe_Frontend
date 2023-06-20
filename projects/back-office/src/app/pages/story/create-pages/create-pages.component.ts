@@ -27,8 +27,20 @@ export class CreatePagesComponent {
     this.createStoryService.pages$.subscribe((pages) => {
       if (!pages) return
       this.pages = pages
+      this.sortPages(this.pages)
     })
     await this.createStoryService.getStory(this.storyId)
     await this.createStoryService.getPages(this.storyId)
+  }
+
+  public sortPages(pages: PageModel[]): void {
+    pages.sort((a, b) => {
+      if (a.pageNumber < b.pageNumber) return -1
+      if (a.pageNumber > b.pageNumber) return 1
+      if (a.pageNumber === b.pageNumber)
+        if (a.choicePath < b.choicePath) return -1
+        else if (a.choicePath > b.choicePath) return 1
+      return 0
+    })
   }
 }

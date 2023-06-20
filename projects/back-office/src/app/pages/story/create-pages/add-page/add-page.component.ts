@@ -40,7 +40,11 @@ export class AddPageComponent implements OnInit {
     return null
   }
 
-  public pageTypes: EPageType[] = [EPageType.Choice, EPageType.Interaction]
+  public pageTypes: EPageType[] = [
+    EPageType.Choice,
+    EPageType.Interaction,
+    EPageType.Display,
+  ]
   public pageTypeTranslations = pageTypeTranslations
 
   public page = structuredClone(this.createStoryService.initPage)

@@ -64,7 +64,10 @@ export class EditPageComponent {
   public clickable = structuredClone(this.initClickable)
 
   public eInteractionType = EInteractionType
-  public interactionTypes: EInteractionType[] = [EInteractionType.Colorize]
+  public interactionTypes: EInteractionType[] = [
+    EInteractionType.Colorize,
+    EInteractionType.Collect,
+  ]
   public interactionTypeTranslations = interactionTypeTranslations
   public initInteraction: InteractionModel = {
     type: EInteractionType.None,
@@ -76,6 +79,7 @@ export class EditPageComponent {
   public interactionType = new FormControl('')
 
   public hasBgImage = false
+  public hasAnimationBgImage = false
   public bgImageFile: File | null = null
 
   public hasClickable = false
@@ -124,6 +128,9 @@ export class EditPageComponent {
       this.animation = structuredClone(this.initAnimation)
       this.animationPosition.setValue('')
     }
+    this.page?.bgImageFileName
+      ? (this.hasBgImage = true)
+      : (this.hasBgImage = false)
   }
 
   public onTextChange(isTitle: boolean): void {
@@ -323,32 +330,39 @@ export class EditPageComponent {
     this.bgImageFile = event.target.files[0]
   }
 
-  public onBgImageUpload(): void {
+  public onBgImageUpload(isInteraction: boolean): void {
     if (!this.bgImageFile || !this.story || !this.page) return
-    this.page.bgImageFileName = this.bgImageFile.name
+    isInteraction
+      ? (this.page.bgImageFileName = this.bgImageFile.name)
+      : (this.page.bgAnimationImageFileName = this.bgImageFile.name)
     const filePath =
-      this.story.title + '/backgroundImages/' + this.page.bgImageFileName
+      this.story.title + '/backgroundImages/' + this.bgImageFile.name
     const fileRef = ref(this.storage, filePath)
-    this.uploadBgImage(fileRef, this.bgImageFile)
+    this.uploadBgImage(fileRef, this.bgImageFile, isInteraction)
   }
 
   public async uploadBgImage(
     fileRef: StorageReference,
-    file: File
+    file: File,
+    isInteraction: boolean
   ): Promise<void> {
     await uploadBytes(fileRef, file)
     await getDownloadURL(fileRef).then((url) => {
-      this.interaction.backgroundImage = url
+      isInteraction
+        ? (this.interaction.backgroundImage = url)
+        : (this.page!.backgroundImage = url)
       this.page!.interaction = this.interaction
     })
     this.createStoryService.pages$.value[
       this.createStoryService.activePage$.value
     ] = this.page!
-    this.hasBgImage = true
+    isInteraction ? (this.hasAnimationBgImage = true) : (this.hasBgImage = true)
   }
 
-  public resetBgImageUpload(): void {
-    this.hasBgImage = false
+  public resetBgImageUpload(isInteraction: boolean): void {
+    isInteraction
+      ? (this.hasAnimationBgImage = false)
+      : (this.hasBgImage = false)
   }
 
   public onClickableAmountChange(): void {

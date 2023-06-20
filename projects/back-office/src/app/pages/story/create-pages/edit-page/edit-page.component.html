@@ -23,6 +23,23 @@
           (keyup)="onTextChange(false)"
         ></textarea>
       </div>
+      <div *ngIf="page?.pageType !== 'Interaction'" class="form-group">
+        <label for="audio">Achtergrond afbeelding:</label>
+        <div *ngIf="!hasBgImage">
+          <input
+            type="file"
+            accept=".png,.jpg,.jpeg"
+            (change)="onBgImageSelected($event)"
+          />
+          <button [disabled]="!pages.length" (click)="onBgImageUpload(false)">
+            Upload
+          </button>
+        </div>
+        <div *ngIf="hasBgImage">
+          <span>{{ page!.bgImageFileName }}</span>
+          <button (click)="resetBgImageUpload(false)">Opniew kiezen</button>
+        </div>
+      </div>
     </ng-template>
 
     <ng-template #game>
@@ -39,19 +56,19 @@
       </div>
       <div class="form-group">
         <label for="audio">Achtergrond afbeelding:</label>
-        <div *ngIf="!hasBgImage">
+        <div *ngIf="!hasAnimationBgImage">
           <input
             type="file"
             accept=".png,.jpg,.jpeg"
             (change)="onBgImageSelected($event)"
           />
-          <button [disabled]="!pages.length" (click)="onBgImageUpload()">
+          <button [disabled]="!pages.length" (click)="onBgImageUpload(true)">
             Upload
           </button>
         </div>
-        <div *ngIf="hasBgImage">
-          <span>{{ page!.bgImageFileName }}</span>
-          <button (click)="resetBgImageUpload()">Opniew kiezen</button>
+        <div *ngIf="hasAnimationBgImage">
+          <span>{{ page!.bgAnimationImageFileName }}</span>
+          <button (click)="resetBgImageUpload(true)">Opniew kiezen</button>
         </div>
       </div>
     </ng-template>
@@ -142,13 +159,9 @@
           </div>
         </ng-template>
 
-        <ng-template
-          [ngIf]="
-            page.startInteraction && page.interaction?.type === 'Colorize'
-          "
-        >
+        <ng-template [ngIf]="page.startInteraction">
           <div class="form-group">
-            <label for="animation-upload">In te kleuren element:</label>
+            <label for="animation-upload">Kilkbaar element:</label>
             <div>
               <div *ngIf="!hasClickable">
                 <input
@@ -180,15 +193,17 @@
             />
           </div>
           <div class="form-group">
-            <label for="clickableShape">Vorm elementen:</label>
-            <select
-              [formControl]="clickableShape"
-              (change)="selectedClickableShape($event)"
-            >
-              <option *ngFor="let shape of clickableShapes" [value]="shape">
-                {{ clickableShapeTranslations[shape] }}
-              </option>
-            </select>
+            <ng-template [ngIf]="page.interaction?.type === 'Colorize'">
+              <label for="clickableShape">Vorm elementen:</label>
+              <select
+                [formControl]="clickableShape"
+                (change)="selectedClickableShape($event)"
+              >
+                <option *ngFor="let shape of clickableShapes" [value]="shape">
+                  {{ clickableShapeTranslations[shape] }}
+                </option>
+              </select>
+            </ng-template>
           </div>
         </ng-template>
       </div>

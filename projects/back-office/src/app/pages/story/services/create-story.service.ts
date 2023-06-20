@@ -33,6 +33,15 @@ export class CreateStoryService {
     choiceSplit: false,
     instructionsTitle: null,
     interaction: null,
+    audioFileName: null,
+    animationFileName: null,
+    hasPageNumberChanged: false,
+    choiceImage1FileName: null,
+    choiceImage2FileName: null,
+    startInteraction: null,
+    bgImageFileName: null,
+    bgAnimationImageFileName: null,
+    clickableFileName: null,
   }
 
   public readonly categories$ = new BehaviorSubject<CategoryModel[]>([])
