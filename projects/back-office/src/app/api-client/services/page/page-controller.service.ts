@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http'
 import { Injectable } from '@angular/core'
 import { PageModel } from '../../models/page/pageModel'
 import { environment } from 'projects/back-office/src/environments/environment'
+import { lastValueFrom } from 'rxjs'
 
 const RESOURCE = '/page'
 
@@ -15,8 +16,10 @@ export class PageControllerService {
     return this.http.post(environment.apiBaseUrl + RESOURCE + '/create', pages)
   }
 
-  public getPages() {
-    return this.http.get(environment.apiBaseUrl + RESOURCE)
+  public async getPages(storyId: string) {
+    return lastValueFrom(
+      this.http.get(environment.apiBaseUrl + RESOURCE + '/' + storyId)
+    )
   }
 
   public updatePages(pages: PageModel[]) {

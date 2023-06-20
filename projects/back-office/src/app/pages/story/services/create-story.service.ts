@@ -65,4 +65,9 @@ export class CreateStoryService {
   public createPages() {
     return this.pageController.createPages(this.pages$.value)
   }
+
+  public async getPages(storyId: string) {
+    const res: any = await this.pageController.getPages(storyId)
+    this.pages$.next(res)
+  }
 }
