@@ -1,0 +1,45 @@
+:host {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.background-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  border-radius: 20px;
+}
+
+.interaction-container {
+  width: 90%;
+  height: 75%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+
+  .clickable-container {
+    width: 5%;
+    height: 15%;
+    max-width: 40px;
+    max-height: 40px;
+    position: absolute;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      cursor: pointer;
+    }
+  }
+}
+
+.hide {
+  display: none;
+}

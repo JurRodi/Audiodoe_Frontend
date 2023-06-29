@@ -1,0 +1,17 @@
+<ng-template [ngIf]="page!.interaction">
+  <div class="background-container" [ngStyle]="setBgImage()">
+    <div class="interaction-container">
+      <div
+        *ngFor="let clickable of clickables; let i = index"
+        class="clickable-container"
+        [ngStyle]="setClickablePosition(i)"
+      >
+        <img
+          [src]="page?.interaction?.clickable?.filename"
+          alt=""
+          (click)="hideClickable(i)"
+        />
+      </div>
+    </div>
+  </div>
+</ng-template>

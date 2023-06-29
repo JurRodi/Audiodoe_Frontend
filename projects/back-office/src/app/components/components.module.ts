@@ -6,6 +6,7 @@ import { PageChoiceComponent } from './page-choice/page-choice.component'
 import { PageInteractionComponent } from './page-interaction/page-interaction.component'
 import { InteractionColorizeComponent } from './interaction-colorize/interaction-colorize.component'
 import { NavigationComponent } from './navigation/navigation.component'
+import { InteractionCollectComponent } from './interaction-collect/interaction-collect.component'
 
 @NgModule({
   declarations: [
@@ -15,6 +16,7 @@ import { NavigationComponent } from './navigation/navigation.component'
     PageInteractionComponent,
     InteractionColorizeComponent,
     NavigationComponent,
+    InteractionCollectComponent,
   ],
   imports: [CommonModule],
   exports: [
@@ -24,6 +26,7 @@ import { NavigationComponent } from './navigation/navigation.component'
     PageInteractionComponent,
     InteractionColorizeComponent,
     NavigationComponent,
+    InteractionCollectComponent,
   ],
 })
 export class ComponentsModule {}
